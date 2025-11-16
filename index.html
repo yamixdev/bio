@@ -1,86 +1,1629 @@
 <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-        <!--==================== UNICONS ====================-->
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Илья — Портфолио</title>
+    <style>
+        /* ========== ДИЗАЙН-СИСТЕМА & ТИПОГРАФИКА ========== */
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@300;400;500;600;700&display=swap');
         
-        
-        <!--==================== SWIPER CSS ====================-->
-        <link rel="stylesheet" href="">
-        
-        <!--==================== CSS ====================-->
-        <link rel="stylesheet" href="">
-
-        <title>Responsive Portfolio Website</title>
-    </head>
-    <body>
-        <!--==================== HEADER ====================-->
-        <header class="header" id="header">
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111111;
+            --bg-tertiary: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            --text-dim: #666666;
+            --accent: #ffffff;
+            --accent-glow: rgba(255, 255, 255, 0.2);
+            --border: #222222;
+            --success: #00ff88;
+            --error: #ff4444;
             
-        </header>
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.5);
+            --shadow-accent: 0 0 20px var(--accent-glow);
+            
+            --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-medium: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
 
-        <!--==================== MAIN ====================-->
-        <main class="main">
-            <!--==================== HOME ====================-->
-            <section class="home section" id="home">
-                
-            </section>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-            <!--==================== ABOUT ====================-->
-            <section class="about section" id="about">
-                
-            </section>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
 
-            <!--==================== SKILLS ====================-->
-            <section class="skills section" id="skills">
+        h1, h2, h3, h4 {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
 
-            </section>
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 500;
+        }
 
-            <!--==================== QUALIFICATION ====================-->
-            <section class="qualification section">
+        /* ========== АНИМАЦИИ ПОЯВЛЕНИЯ ========== */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-            </section>
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-            <!--==================== SERVICES ====================-->
-            <section class="services section" id="services">
-                
-            </section>
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.85); }
+            to { opacity: 1; transform: scale(1); }
+        }
 
-            <!--==================== PORTFOLIO ====================-->
-            <section class="portfolio section" id="portfolio">
-                
-            </section>
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 5px rgba(255, 255, 255, 0.1), inset 0 0 5px rgba(255, 255, 255, 0.05); }
+            50% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.2), inset 0 0 10px rgba(255, 255, 255, 0.1); }
+        }
 
-            <!--==================== PROJECT IN MIND ====================-->
-            <section class="project section">
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
 
-            </section>
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
 
-            <!--==================== TESTIMONIAL ====================-->
-            <section class="testimonial section">
-                
-            </section>
+        @keyframes fadeOutDown {
+            from { opacity: 1; transform: translateY(0) scale(1); }
+            to { opacity: 0; transform: translateY(30px) scale(0.9); }
+        }
 
-            <!--==================== CONTACT ME ====================-->
-            <section class="contact section" id="contact">
+        @keyframes logoGlow {
+            0%, 100% { text-shadow: 0 0 8px rgba(255, 255, 255, 0.15); }
+            50% { text-shadow: 0 0 15px rgba(255, 255, 255, 0.25); }
+        }
 
-            </section>
-        </main>
+        @keyframes logoPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.01); }
+        }
 
-        <!--==================== FOOTER ====================-->
-        <footer class="footer">
-         
-        </footer>
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-40px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(40px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes bounceIn {
+            0% { opacity: 0; transform: scale(0.3); }
+            50% { opacity: 1; transform: scale(1.05); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes rotateIn {
+            from { opacity: 0; transform: rotate(-10deg) scale(0.9); }
+            to { opacity: 1; transform: rotate(0) scale(1); }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        .scale-in {
+            animation: fadeInScale 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        /* ========== НАВИГАЦИЯ ========== */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.98);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--border);
+            transition: var(--transition-medium);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: none;
+            transition: all var(--transition-fast);
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: -0.5px;
+            cursor: pointer;
+            animation: logoGlow 6s ease-in-out infinite, logoPulse 8s ease-in-out infinite;
+            position: relative;
+        }
+
+        .logo:hover {
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.5), 0 0 60px rgba(255, 255, 255, 0.3);
+            transform: scale(1.08) rotate(-1deg);
+            animation: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.5rem 0;
+            border-radius: 0;
+            transition: all var(--transition-fast);
+            position: relative;
+            overflow: hidden;
+            font-size: 0.95rem;
+            border-bottom: 2px solid transparent;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            transform: transparent;
+            transition: transparent;
+            z-index: 0;
+            display: none;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--accent);
+            background: transparent;
+            border-bottom-color: var(--accent);
+        }
+
+        /* ========== КОНТЕЙНЕР ========== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6rem 2rem 2rem;
+        }
+
+        .section {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all var(--transition-medium);
+        }
+
+        .section.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section h2 {
+            font-size: 2.2rem;
+            margin-bottom: 2.5rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--accent), var(--text-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInDown 0.6s ease forwards;
+        }
+
+        /* ========== HERO СЕКЦИЯ ========== */
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        .avatar-container {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .avatar {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 3px solid var(--border);
+            overflow: hidden;
+            transition: var(--transition-medium);
+            position: relative;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+            animation: rotateIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .avatar::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1));
+            opacity: 0;
+            transition: var(--transition-medium);
+            z-index: 1;
+        }
+
+        .avatar:hover::before {
+            opacity: 1;
+            animation: glow 2s infinite;
+        }
+
+        .avatar:hover {
+            transform: scale(1.08);
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.3), inset 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition-medium);
+            display: block;
+            position: relative;
+            z-index: 0;
+        }
+
+        .avatar:hover img {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 10vw, 5rem);
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--text-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInDown 0.8s cubic-bezier(0.4, 0, 0.2, 1), bounceIn 1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s;
+            letter-spacing: -1px;
+        }
+
+        .hero .tagline {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.4s forwards;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+
+        /* ========== ЛЮБИМЫЕ ПРИЛОЖЕНИЯ ========== */
+        .apps-section {
+            margin-top: 4rem;
+            padding-top: 3rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: var(--accent);
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            animation: fadeInDown 0.6s ease forwards;
+        }
+
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .app-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem 1.5rem;
+            cursor: pointer;
+            transition: all var(--transition-medium);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            animation: fadeInUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        .app-card:nth-child(1) { animation-delay: 0.1s; }
+        .app-card:nth-child(2) { animation-delay: 0.2s; }
+        .app-card:nth-child(3) { animation-delay: 0.3s; }
+        .app-card:nth-child(4) { animation-delay: 0.4s; }
+        .app-card:nth-child(5) { animation-delay: 0.5s; }
+        .app-card:nth-child(6) { animation-delay: 0.6s; }
+
+        .app-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left var(--transition-slow);
+            z-index: 0;
+        }
+
+        .app-card:hover::before {
+            left: 100%;
+        }
+
+        .app-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-8px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 0 20px rgba(255, 255, 255, 0.05);
+            background: linear-gradient(135deg, var(--bg-secondary), rgba(255, 255, 255, 0.02));
+        }
+
+        .app-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            background: var(--bg-tertiary);
+            border-radius: 12px;
+            transition: all var(--transition-medium);
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .app-img {
+            max-width: 52%;
+            max-height: 52%;
+            width: auto;
+            height: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        .app-card:hover .app-icon {
+            transform: scale(1.15) rotate(-5deg);
+            background: linear-gradient(135deg, var(--accent), rgba(255, 255, 255, 0.2));
+            color: var(--bg-primary);
+            box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);
+        }
+
+        .app-name {
+            font-size: 1.05rem;
+            text-align: center;
+            color: var(--text-secondary);
+            font-weight: 500;
+            position: relative;
+            z-index: 1;
+            transition: var(--transition-fast);
+        }
+
+        .app-card:hover .app-name {
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* ========== ПРОЕКТЫ ========== */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .project-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all var(--transition-medium);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            cursor: default;
+            animation: fadeInUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        .project-card:nth-child(1) { animation-delay: 0.2s; }
+        .project-card:nth-child(2) { animation-delay: 0.4s; }
+
+        .project-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), transparent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform var(--transition-medium);
+        }
+
+        .project-card:hover::after {
+            transform: scaleX(1);
+        }
+
+        .project-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(255, 255, 255, 0.05);
+            border-color: var(--accent);
+            background: linear-gradient(135deg, var(--bg-secondary), rgba(255, 255, 255, 0.03));
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+            transition: var(--transition-fast);
+        }
+
+        .project-card:hover .project-title {
+            transform: translateX(4px);
+        }
+
+        .project-status {
+            background: var(--success);
+            color: var(--bg-primary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .project-description {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tech-tag {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            padding: 0.5rem 0.95rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            position: relative;
+            font-weight: 500;
+            display: inline-block;
+            user-select: none;
+            overflow: hidden;
+        }
+
+        .tech-tag::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.3s ease;
+            z-index: 0;
+        }
+
+        .tech-tag:hover::before {
+            left: 100%;
+        }
+
+        .tech-tag:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.03);
+            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Мини-описание при наведении на технологию */
+        .tech-tooltip {
+            position: fixed;
+            background: var(--bg-secondary);
+            border: 1px solid var(--accent);
+            border-radius: 8px;
+            padding: 0.5rem 0.8rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity var(--transition-fast);
+            z-index: 100;
+            white-space: nowrap;
+        }
+
+        .tech-tooltip.visible {
+            opacity: 1;
+        }
+
+        /* ========== НОВОСТИ ========== */
+        .news-section {
+            margin-top: 2rem;
+        }
+
+        .news-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .news-header p {
+            color: var(--text-dim);
+            margin-top: 0.5rem;
+        }
+
+        .news-widget {
+            margin: 2rem 0;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .news-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all var(--transition-medium);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            animation: fadeInUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        .news-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-6px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), inset 0 0 15px rgba(255, 255, 255, 0.05);
+            background: linear-gradient(135deg, var(--bg-secondary), rgba(255, 255, 255, 0.02));
+        }
+
+        .news-title {
+            font-size: 1.15rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+            transition: var(--transition-fast);
+        }
+
+        .news-card:hover .news-title {
+            transform: translateX(3px);
+        }
+
+        .news-excerpt {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .news-badge {
+            position: absolute;
+            top: 1.2rem;
+            right: 1.2rem;
+            background: var(--accent);
+            color: var(--bg-primary);
+            padding: 0.35rem 0.7rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            transition: all var(--transition-fast);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .news-card:hover .news-badge {
+            transform: scale(1.15);
+        }
+
+        .news-date {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            margin-bottom: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.2px;
+        }
+
+        /* ========== ОБО МНЕ ========== */
+        .about-section {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .bio {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            transition: all var(--transition-medium);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInScale 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        .bio::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity var(--transition-medium);
+            pointer-events: none;
+        }
+
+        .bio:hover::before {
+            opacity: 1;
+        }
+
+        .bio h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--accent), var(--text-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .bio p {
+            color: var(--text-secondary);
+            margin: 0.8rem 0;
+            line-height: 1.7;
+            position: relative;
+            z-index: 1;
+        }
+
+        .bio .highlight {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.85rem 1.75rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all var(--transition-medium);
+            font-weight: 500;
+            font-size: 0.95rem;
+            animation: slideInLeft 0.5s ease forwards;
+        }
+
+        .social-btn:nth-child(2) {
+            animation: slideInRight 0.5s ease forwards;
+        }
+
+        .social-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(255, 255, 255, 0.15);
+            background: linear-gradient(135deg, var(--bg-secondary), rgba(255, 255, 255, 0.03));
+        }
+
+        /* ========== МОДАЛЬНЫЕ ОКНА ========== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(15px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity var(--transition-medium);
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2.5rem;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            transform: scale(0.9);
+            transition: transform var(--transition-medium);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+        }
+
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal.closing {
+            animation: fadeOutDown 0.4s ease forwards !important;
+        }
+
+        .modal.closing .modal-content {
+            transform: scale(0.9);
+            opacity: 0;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            gap: 1rem;
+        }
+
+        .modal-header h3 {
+            font-size: 1.6rem;
+            color: var(--accent);
+        }
+
+        .modal-close {
+            width: 36px;
+            height: 36px;
+            border: none;
+            background: var(--bg-primary);
+            border-radius: 50%;
+            color: var(--text-dim);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            border: 1px solid var(--border);
+        }
+
+        .modal-close:hover {
+            color: var(--accent);
+            transform: rotate(90deg);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--accent);
+        }
+
+        .modal-body {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+
+        .modal-body ul {
+            margin-left: 1.5rem;
+        }
+
+        .modal-body li {
+            margin-bottom: 0.6rem;
+            color: var(--text-secondary);
+        }
+
+        .modal-body h4 {
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 0.9rem 1.5rem;
+            border: 1.5px solid var(--accent);
+            background: transparent;
+            color: var(--accent);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .modal-btn:hover {
+            background: var(--accent);
+            color: var(--bg-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(255, 255, 255, 0.2);
+        }
+
+        .modal-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* ========== АЧИВКИ/БЕЙДЖИ ========== */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            transition: all var(--transition-fast);
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .badge::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity var(--transition-fast);
+            pointer-events: none;
+        }
+
+        .badge:hover::before {
+            opacity: 1;
+        }
+
+        .badge:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .badge.premium {
+            border-color: var(--success);
+            color: var(--success);
+            background: rgba(0, 255, 136, 0.05);
+        }
+
+        .badge.premium:hover {
+            background: rgba(0, 255, 136, 0.15);
+        }
+
+        .badge.new {
+            border-color: var(--error);
+            color: var(--error);
+            background: rgba(255, 68, 68, 0.05);
+        }
+
+        .badge.new:hover {
+            background: rgba(255, 68, 68, 0.15);
+        }
+
+        /* ========== SVG ИКОНКИ ========== */
+        .svg-icon {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+            transition: all var(--transition-fast);
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .svg-icon:hover {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        a .svg-icon:hover {
+            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
+        }
+
+        /* ========== АДАПТИВ ========== */
+        @media (max-width: 768px) {
+            .container {
+                padding: 5rem 1rem 2rem;
+            }
+
+            nav {
+                padding: 0.75rem 1rem;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            .nav-menu {
+                gap: 0.25rem;
+            }
+
+            .nav-link {
+                padding: 0.5rem 0.8rem;
+                font-size: 0.85rem;
+            }
+
+            .hero {
+                min-height: auto;
+                padding: 1rem 0;
+            }
+
+            .avatar {
+                width: 140px;
+                height: 140px;
+            }
+
+            .avatar-container {
+                margin-bottom: 1.5rem;
+            }
+
+            .apps-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .modal-content {
+                margin: 1rem;
+                padding: 1.5rem;
+                max-height: 85vh;
+            }
+
+            .modal-actions {
+                flex-direction: column;
+            }
+
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .social-links {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .social-btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .bio {
+                padding: 2rem;
+            }
+
+            .section h2 {
+                font-size: 1.8rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .project-header {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 4.5rem 0.75rem 1rem;
+            }
+
+            nav {
+                padding: 0.65rem 0.75rem;
+            }
+
+            .logo {
+                font-size: 1rem;
+            }
+
+            .nav-menu {
+                gap: 0.1rem;
+            }
+
+            .nav-link {
+                padding: 0.4rem 0.6rem;
+                font-size: 0.75rem;
+            }
+
+            .avatar {
+                width: 120px;
+                height: 120px;
+            }
+
+            .hero h1 {
+                font-size: clamp(2rem, 7vw, 3rem);
+            }
+
+            .hero .tagline {
+                font-size: 0.95rem;
+            }
+
+            .apps-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .app-card {
+                padding: 1.5rem 1rem;
+            }
+
+            .app-icon {
+                width: 80px;
+                height: 80px;
+                font-size: 2rem;
+            }
+
+            .modal-content {
+                margin: 0.75rem;
+                padding: 1.25rem;
+                max-width: calc(100% - 1.5rem);
+            }
+
+            .section h2 {
+                font-size: 1.5rem;
+            }
+
+            .bio {
+                padding: 1.5rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+                margin-bottom: 1.5rem;
+            }
+        }
+
+        /* ========== TOUCH ДЛЯ МОБИЛЬНЫХ ========== */
+        @media (hover: none) {
+            .card:active,
+            .app-card:active,
+            .news-card:active {
+                transform: scale(0.98);
+            }
+        }
+
+        /* ========== СКРОЛЛБАР ========== */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 5px;
+            border: 2px solid var(--bg-primary);
+            transition: background var(--transition-fast);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-secondary);
+        }
+
+        /* Firefox scrollbar */
+        * {
+            scrollbar-color: var(--border) var(--bg-primary);
+            scrollbar-width: thin;
+        }
+    </style>
+</head>
+<body>
+    <!-- ========== НАВИГАЦИЯ ========== -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">ilushadev</a>
+            <ul class="nav-menu">
+                <li><a class="nav-link active" data-section="home">Главная</a></li>
+                <li><a class="nav-link" data-section="news">Новости</a></li>
+                <li><a class="nav-link" data-section="projects">Проекты</a></li>
+                <li><a class="nav-link" data-section="about">Обо мне</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ========== КОНТЕЙНЕР ========== -->
+    <div class="container">
         
-        <!--==================== SCROLL TOP ====================-->
-        
+        <!-- ========== ГЛАВНАЯ ========== -->
+        <section class="section active" id="home">
+            <div class="hero fade-in">
+                <div class="avatar-container">
+                    <div class="avatar scale-in">
+                        <!-- АВАТАР -->
+                        <img src="avatar.png" alt="Илья">
+                    </div>
+                </div>
+                <h1>Илья</h1>
+                <p class="tagline">Создаю приложения, игры, сайты. Студент-программист.</p>
+                
+                <div class="apps-section fade-in">
+                    <h2 class="section-title">Любимые инструменты</h2>
+                    <div class="apps-grid">
+                        <div class="app-card" onclick="openAppModal('unreal')" data-app="unreal">
+                            <div class="app-icon">
+                                <img src="unreal.png" alt="Unreal Engine" class="app-img" />
+                            </div>
+                            <div class="app-name">Unreal Engine</div>
+                        </div>
+                        <div class="app-card" onclick="openAppModal('unity')" data-app="unity">
+                            <div class="app-icon">
+                                <img src="unity.png" alt="Unity" class="app-img" />
+                            </div>
+                            <div class="app-name">Unity</div>
+                        </div>
+                        <div class="app-card" onclick="openAppModal('vscode')" data-app="vscode">
+                            <div class="app-icon">
+                                <img src="vscode.png" alt="VS Code" class="app-img" />
+                            </div>
+                            <div class="app-name">VS Code</div>
+                        </div>
+                        <div class="app-card" onclick="openAppModal('blender')" data-app="blender">
+                            <div class="app-icon">
+                                <img src="blender.png" alt="Blender" class="app-img" />
+                            </div>
+                            <div class="app-name">Blender</div>
+                        </div>
+                        <div class="app-card" onclick="openAppModal('github')" data-app="github">
+                            <div class="app-icon">
+                                <svg class="svg-icon" viewBox="0 0 24 24">
+                                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                </svg>
+                            </div>
+                            <div class="app-name">GitHub</div>
+                        </div>
+                        <div class="app-card" onclick="openAppModal('telegram')" data-app="telegram">
+                            <div class="app-icon">
+                                <svg class="svg-icon" viewBox="0 0 24 24" fill="white">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm3.5 11.5l-3.5 2.5v3l-2-2.5-2.5.5 5.5-8 2.5 4.5z" fill="white" opacity="0.9"/>
+                                    <path d="M7 10l8.5-4.5" stroke="white" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                            <div class="app-name">Telegram</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        <!--==================== SWIPER JS ====================-->
-        <script src=""></script>
+        <!-- ========== НОВОСТИ ========== -->
+        <section class="section" id="news">
+            <div class="news-header fade-in">
+                <h2>Новости</h2>
+                <p>Актуальный блог в Telegram-канале и на сайте</p>
+            </div>
+            
+            <div class="news-widget fade-in" onclick="window.open('https://t.me/ilushadevz', '_blank')" style="cursor: pointer;">
+                <div style="padding: 2rem; text-align: center; height: 400px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.5rem;">
+                    <div style="font-size: 3rem;">💬</div>
+                    <h3 style="font-size: 1.5rem; color: var(--accent);">Telegram Канал</h3>
+                    <p style="color: var(--text-secondary); font-size: 1.05rem; max-width: 300px;">Следите за новостями развития проектов, обновлениями и интересными статьями прямо в Telegram</p>
+                    <button class="modal-btn" style="margin-top: 1rem; border: 1.5px solid var(--accent); background: transparent; color: var(--accent); padding: 0.9rem 1.5rem; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all var(--transition-fast);">
+                        Перейти в канал →
+                    </button>
+                </div>
+            </div>
+            
+            <div class="news-grid fade-in">
+                <div class="news-card" onclick="openNewsModal('portfolio')">
+                    <span class="badge premium">TOP</span>
+                    <div class="news-date">15.11.2025</div>
+                    <h3 class="news-title">Запуск персональной страницы</h3>
+                    <p class="news-excerpt">Создана полностью кастомная персональная страница с современным дизайном, плавными анимациями, системой тем и интеграцией с Telegram.</p>
+                </div>
+            </div>
+        </section>
 
-        <!--==================== MAIN JS ====================-->
-        <script src=""></script>
-    </body>
+        <!-- ========== ПРОЕКТЫ ========== -->
+        <section class="section" id="projects">
+            <h2 class="fade-in">Проекты</h2>
+            <div class="projects-grid fade-in">
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-title">Моя страница</h3>
+                        <span class="badge">Активно</span>
+                    </div>
+                    <p class="project-description">Персональная страница-портал, созданная с нуля без фреймворков. Включает кастомные анимации, модальные окна, систему тем (светлая/тёмная), Telegram-виджет и адаптивный дизайн.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag" data-tooltip="Язык разметки для структуры веб-страниц">HTML5</span>
+                        <span class="tech-tag" data-tooltip="Каскадные таблицы стилей">CSS3</span>
+                        <span class="tech-tag" data-tooltip="Язык программирования для интерактивности">JavaScript</span>
+                        <span class="tech-tag" data-tooltip="Система контроля версий">Git</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-title">VK Desktop</h3>
+                        <span class="badge premium">NEW</span>
+                    </div>
+                    <p class="project-description">Оболочка для ВКонтакте на базе Electron. Дает возможность использовать ВК как отдельное приложение без браузера с треем и горячими клавишами.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag" data-tooltip="Фреймворк для создания десктоп приложений">Electron JS</span>
+                        <span class="tech-tag" data-tooltip="Веб-технологии внутри">HTML/CSS</span>
+                        <span class="tech-tag" data-tooltip="Node.js для бэкенда">Node.js</span>
+                    </div>
+                    <p style="margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-dim);">
+                        📝 Скоро пост по VK Desktop перейдет на этот сайт, а может и нет
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== ОБО МНЕ ========== -->
+        <section class="section" id="about">
+            <div class="about-section fade-in">
+                <h2>Обо мне</h2>
+                <div class="bio">
+                    <h3>Илья</h3>
+                    <p>❤️ Люблю заниматься программированием, разработкой игр и приложений</p>
+                    <p>🎯 Цель: создавать качественные и полезные продукты</p>
+                    <p>📚 В данный момент активно изучаю веб-разработку и геймдев</p>
+                    
+                    <div style="margin-top: 2rem;">
+                        <span class="badge">JavaScript</span>
+                        <span class="badge">Python</span>
+                        <span class="badge">React</span>
+                        <span class="badge">Git</span>
+                        <span class="badge">Electron</span>
+                    </div>
+                </div>
+                
+                <div class="social-links">
+                    <a href="https://t.me/ilushadevz" class="social-btn" target="_blank">
+                        <svg class="svg-icon" width="20" height="20" viewBox="0 0 24 24">
+                            <path d="M9.78 18.65l.28-4.23l7.68-6.92c.78-.7-.36-1.08-1.12-.4L7.7 13.9l-4.23-1.3c-.92-.28-.9-.9.2-1.32l16.5-6.36c.72-.28 1.36.42 1.12 1.3l-3.64 17.1c-.24 1.06-1.02 1.32-1.96.78l-5.14-3.42l-2.5 2.3c-.58.58-1.12.28-1-.5l.92-5.46l9.18-8.3c.42-.38-.12-.62-.56-.24L9.8 14.5l-.32 4.2c-.3.9-.86 1.12-1.56.58l-3.42-2.6l-.4 3.54c-.2.72-.78 1-1.4.56z"/>
+                        </svg>
+                        Telegram
+                    </a>
+                    <a href="https://github.com/yamixdev" class="social-btn" target="_blank">
+                        <svg class="svg-icon" width="20" height="20" viewBox="0 0 24 24">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                        GitHub
+                    </a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ========== МОДАЛЬНОЕ ОКНО ========== -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title"></h3>
+                <button class="modal-close" onclick="closeModal()">
+                    <svg class="svg-icon" width="16" height="16" viewBox="0 0 24 24">
+                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body" id="modal-body"></div>
+            <div class="modal-actions" id="modal-actions"></div>
+        </div>
+    </div>
+
+    <!-- ========== ДАННЫЕ ДЛЯ МОДАЛЬНЫХ ОКОН ========== -->
+    <script>
+        const modalData = {
+            apps: {
+                unreal: {
+                    title: 'Unreal Engine',
+                    icon: '',
+                    description: 'Мощный игровой движок от Epic Games для создания AAA-игр.',
+                    pros: ['Фотореалистичная графика', 'Blueprints для визуального программирования', 'Бесплатная лицензия до $1M дохода', 'Мощная система частиц'],
+                    cons: ['Высокие системные требования', 'Долгая компиляция', 'Сложный для новичков'],
+                    link: 'https://www.unrealengine.com'
+                },
+                unity: {
+                    title: 'Unity',
+                    icon: '',
+                    description: 'Кроссплатформенный игровой движок для 2D/3D игр и приложений.',
+                    pros: ['Кроссплатформенность (20+ платформ)', 'Asset Store', 'Большое комьюнити', 'C# для скриптов'],
+                    cons: ['Проблемы с оптимизацией', 'Сложный UI систем', 'Платная лицензия для проектов >$100K'],
+                    link: 'https://unity.com'
+                },
+                vscode: {
+                    title: 'Visual Studio Code',
+                    icon: '',
+                    description: 'Легкий и мощный редактор кода от Microsoft с огромной экосистемой.',
+                    pros: ['Быстрый и легкий', 'Множество расширений', 'Встроенный терминал', 'Git интеграция', 'Бесплатный'],
+                    cons: ['Потребляет много RAM', 'Может тормозить на слабых ПК', 'Настройка может быть сложной'],
+                    link: 'https://code.visualstudio.com'
+                },
+                blender: {
+                    title: 'Blender',
+                    icon: '',
+                    description: 'Бесплатный профессиональный 3D-редактор для моделирования, анимации и рендеринга.',
+                    pros: ['Полностью бесплатный', 'Профессиональные инструменты', 'Активное комьюнити', 'Все в одном'],
+                    cons: ['Неинтуитивный UI', 'Сложный для новичков', 'Высокие требования к железу'],
+                    link: 'https://www.blender.org'
+                },
+                github: {
+                    title: 'GitHub',
+                    icon: '',
+                    description: 'Крупнейшая платформа для хостинга и совместной разработки кода.',
+                    pros: ['Бесплатный приватный репозитории', 'GitHub Actions', 'Pages для хостинга', 'Большое комьюнити'],
+                    cons: ['Платные приватные репозитории для команд', 'Иногда глючит', 'Microsoft'],
+                    link: 'https://github.com'
+                },
+                telegram: {
+                    title: 'Telegram',
+                    icon: '',
+                    description: 'Быстрый и безопасный мессенджер с открытым API.',
+                    pros: ['Скорость', 'Безопасность', 'Открытый API', 'Каналы и боты', 'Облако'],
+                    cons: ['Не все используют', 'Ограничения в некоторых странах', 'Спам в каналах'],
+                    link: 'https://telegram.org'
+                }
+            },
+            news: {
+                'portfolio': {
+                    title: 'Запуск персонального портфолио-сайта',
+                    date: '15.11.2025',
+                    content: 'Наконец-то запустил свой сайт-портфолио после 2 недель разработки. Сайт построен на чистом HTML/CSS/JS без фреймворков, включает кастомные анимации, модальные окна, интеграцию с Telegram и адаптивный дизайн. Все анимации плавные, кнопки реально прожимаются, а контент подгружается динамически. Планирую добавить систему тем и блог.',
+                    link: 'https://t.me/ilushadevz/2'
+                }
+            },
+            tech: {
+                'HTML5': {
+                    title: 'HTML5 — Язык разметки',
+                    description: 'Последняя версия HTML с поддержкой семантических тегов, медиа-элементов и API.',
+                    use: 'Для структурирования веб-страниц',
+                    link: 'https://developer.mozilla.org/en-US/docs/Web/HTML'
+                },
+                'CSS3': {
+                    title: 'CSS3 — Каскадные таблицы стилей',
+                    description: 'Мощный язык стилей для оформления веб-страниц с анимациями и grid/flexbox.',
+                    use: 'Для стилизации и анимаций',
+                    link: 'https://developer.mozilla.org/en-US/docs/Web/CSS'
+                },
+                'JavaScript': {
+                    title: 'JavaScript — Язык программирования',
+                    description: 'Динамический язык для создания интерактивных веб-приложений.',
+                    use: 'Для логики и интерактивности',
+                    link: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript'
+                },
+                'Git': {
+                    title: 'Git — Система контроля версий',
+                    description: 'Распределенная система для отслеживания изменений в коде.',
+                    use: 'Для управления версиями кода',
+                    link: 'https://git-scm.com'
+                }
+            }
+        };
+
+        // ========== МОДАЛЬНЫЕ ОКНА ==========
+        function openAppModal(appId) {
+            const app = modalData.apps[appId];
+            document.getElementById('modal-title').textContent = app.title;
+            document.getElementById('modal-body').innerHTML = `
+                <p style="margin-bottom: 1.5rem;">${app.description}</p>
+                <h4 style="color: var(--success); margin-bottom: 0.5rem;">Плюсы:</h4>
+                <ul style="margin-bottom: 1.5rem; padding-left: 1.5rem;">
+                    ${app.pros.map(p => `<li style="margin-bottom: 0.5rem;">${p}</li>`).join('')}
+                </ul>
+                <h4 style="color: var(--error); margin-bottom: 0.5rem;">Минусы:</h4>
+                <ul style="padding-left: 1.5rem;">
+                    ${app.cons.map(c => `<li style="margin-bottom: 0.5rem;">${c}</li>`).join('')}
+                </ul>
+            `;
+            document.getElementById('modal-actions').innerHTML = `
+                <a href="${app.link}" target="_blank" class="modal-btn">Официальный сайт</a>
+            `;
+            document.getElementById('modal').classList.add('active');
+        }
+
+        function openNewsModal(newsId) {
+            const news = modalData.news[newsId];
+            document.getElementById('modal-title').textContent = news.title;
+            document.getElementById('modal-body').innerHTML = `
+                <div class="news-date" style="margin-bottom: 1rem;">${news.date}</div>
+                <p>${news.content}</p>
+            `;
+            document.getElementById('modal-actions').innerHTML = `
+                <a href="${news.link}" target="_blank" class="modal-btn">Открыть в Telegram</a>
+            `;
+            document.getElementById('modal').classList.add('active');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.classList.add('closing');
+            setTimeout(() => {
+                modal.classList.remove('active', 'closing');
+            }, 400);
+        }
+
+        // Закрытие модалки по клику на фон или ESC
+        document.getElementById('modal').addEventListener('click', (e) => {
+            if (e.target.id === 'modal') closeModal();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // ========== НАВИГАЦИЯ ==========
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+                
+                link.classList.add('active');
+                const sectionId = link.getAttribute('data-section');
+                document.getElementById(sectionId).classList.add('active');
+            });
+        });
+
+        // ========== TOOLTIP ДЛЯ ТЕХНОЛОГИЙ (при наведении) ==========
+        const tooltip = document.createElement('div');
+        tooltip.className = 'tech-tooltip';
+        tooltip.id = 'global-tooltip';
+        document.body.appendChild(tooltip);
+
+        document.querySelectorAll('.tech-tag').forEach(tag => {
+            const techName = tag.textContent;
+            const techInfo = modalData.tech[techName];
+            
+            if (techInfo) {
+                tag.setAttribute('data-tooltip', techInfo.use);
+                
+                tag.addEventListener('mouseenter', (e) => {
+                    const rect = tag.getBoundingClientRect();
+                    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                    const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+                    
+                    tooltip.textContent = techInfo.use;
+                    tooltip.classList.add('visible');
+                    
+                    const tooltipRect = tooltip.getBoundingClientRect();
+                    const top = rect.top + scrollTop - tooltipRect.height - 8;
+                    const left = rect.left + scrollLeft + (rect.width - tooltipRect.width) / 2;
+                    
+                    tooltip.style.top = `${top}px`;
+                    tooltip.style.left = `${left}px`;
+                });
+                
+                tag.addEventListener('mouseleave', () => {
+                    tooltip.classList.remove('visible');
+                });
+                
+                tag.addEventListener('click', () => {
+                    document.getElementById('modal-title').textContent = techInfo.title;
+                    document.getElementById('modal-body').innerHTML = `
+                        <p style="margin-bottom: 1rem;">${techInfo.description}</p>
+                        <p><strong>Использование:</strong> ${techInfo.use}</p>
+                    `;
+                    document.getElementById('modal-actions').innerHTML = `
+                        <a href="${techInfo.link}" target="_blank" class="modal-btn">Документация</a>
+                    `;
+                    document.getElementById('modal').classList.add('active');
+                });
+            }
+        });
+
+        // ========== АНИМАЦИИ ПРИ СКРОЛЛЕ ==========
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // ========== ИНИЦИАЛИЗАЦИЯ ==========
+        document.addEventListener('DOMContentLoaded', () => {
+            // Анимация появления элементов с каскадом
+            const cards = document.querySelectorAll('.app-card, .project-card, .news-card');
+            cards.forEach((el, index) => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'opacity 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                setTimeout(() => {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, 80 * index);
+            });
+
+            // Плавная прокрутка для навигации
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const target = link.getAttribute('data-section');
+                    if (target) {
+                        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+                        link.classList.add('active');
+                        document.getElementById(target).classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
 </html>
