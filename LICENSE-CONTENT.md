@@ -12,6 +12,6 @@ Under the following terms:
 Full license text and legal code: https://creativecommons.org/licenses/by/4.0/legalcode
 
 Suggested attribution format:
-"Content © 2025 Ilushadev (ilushadev.github.io) — licensed under CC BY 4.0"
+"Content © 2025 Ilushadev (bio) — licensed under CC BY 4.0"
 
 If you prefer a different content license (e.g. CC BY-NC, CC BY-SA), tell me and I'll update this file.
