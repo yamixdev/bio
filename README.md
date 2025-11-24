@@ -1,4 +1,4 @@
-# 👤 IlushaDev — Personal Bio Page
+# IlushaDev — Personal Bio Page
 
 ![Status](https://img.shields.io/website?url=https%3A%2F%2Fyamixdev.github.io%2Fbio%2F&style=for-the-badge&label=Status)
 ![Tech](https://img.shields.io/badge/Stack-HTML5_%7C_CSS3_%7C_JS-blue?style=for-the-badge)
@@ -7,7 +7,7 @@
 **Современная, минималистичная персональная страница-портфолио.**
 Проект разработан с упором на визуальную эстетику ("Glassmorphism"), высокую производительность и интерактивность без использования тяжелых фреймворков.
 
-🚀 **Live Demo:** [yamixdev.github.io/bio](https://yamixdev.github.io/bio/)
+**Live Demo:** [yamixdev.github.io/bio](https://yamixdev.github.io/bio/)
 
 ---
 
