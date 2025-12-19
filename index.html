@@ -1,436 +1,433 @@
-<!-- 
-    ╭──────────────────────────────────────────────────────────╮
-    │  Made by IlushaDev (aka ILODEV)                          │
-    │  © 2025. All rights reserved.                            │
-    │                                                          │
-    │  Liked this site? Don't steal the code!                  │
-    │  I can build a custom high-performance site for you.     │
-    │                                                          │
-    │  👉 Order here: https://t.me/Ilushadev                   │
-    ╰──────────────────────────────────────────────────────────╯
--->
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Илья — Creative Dev</title>
+    <meta name="description" content="ilushadev - Personal Portfolio & Software">
+    <meta name="theme-color" content="#050505">
+    <title>ilushadev</title>
     
+    <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-    <style>
-        :root {
-            --bg-main: #020204;
-            --text-main: #FFFFFF;
-            --text-muted: #A1A1AA;
-            --glass-bg: rgba(255, 255, 255, 0.02);
-            --glass-border: rgba(255, 255, 255, 0.06);
-            --glass-shine: rgba(255, 255, 255, 0.03);
-            --glass-blur: blur(20px);
-            --spotify-green: #1DB954;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-
-        body {
-            background-color: var(--bg-main);
-            color: var(--text-main);
-            font-family: 'Inter Tight', sans-serif;
-            line-height: 1.6;
-            overflow-x: hidden;
-            min-height: 100vh;
-        }
-
-        .ambient-wrapper {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1; overflow: hidden; background: #020204;
-        }
-        
-        .blob {
-            position: absolute; border-radius: 50%;
-            filter: blur(100px);
-            opacity: 0.25;
-            animation: pulse 10s ease-in-out infinite;
-        }
-        .blob-1 { top: -10%; left: 10%; width: 60vw; height: 60vw; background: #4c1d95; }
-        .blob-2 { bottom: -10%; right: 10%; width: 60vw; height: 60vw; background: #1e3a8a; animation-delay: -5s; }
-
-        @keyframes pulse { 
-            0%, 100% { opacity: 0.2; transform: scale(1); } 
-            50% { opacity: 0.3; transform: scale(1.1); } 
-        }
-
-        .container { width: 100%; max-width: 760px; margin: 0 auto; padding: 0 24px; }
-        a, button { text-decoration: none; color: inherit; cursor: pointer; border: none; background: none; font-family: inherit; }
-
-        nav {
-            position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
-            width: calc(100% - 40px); max-width: 760px; z-index: 50;
-            background: rgba(5, 5, 5, 0.7); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
-            border: 1px solid var(--glass-border); border-radius: 100px; padding: 12px 24px;
-        }
-        .nav-inner { display: flex; justify-content: space-between; align-items: center; }
-        .logo-main { font-weight: 700; font-size: 1.05rem; letter-spacing: -0.02em; }
-        .logo-sub { font-size: 0.7rem; color: var(--text-muted); opacity: 0.6; }
-        .nav-links { display: flex; gap: 24px; }
-        .nav-item { font-size: 0.85rem; font-weight: 500; color: var(--text-muted); transition: 0.2s; }
-        .nav-item:hover { color: #fff; }
-        
-        .cursor { display: inline-block; width: 7px; height: 2px; background: #fff; animation: blink 1s infinite; vertical-align: middle; margin-left: 2px; }
-        @keyframes blink { 50% { opacity: 0; } }
-        .heart { display: inline-block; color: #ef4444; animation: beat 1.5s infinite; }
-        @keyframes beat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
-
-        .hero { padding-top: 160px; padding-bottom: 60px; opacity: 0; animation: fadeUp 0.8s ease-out forwards; }
-        
-        .avatar {
-            width: 80px; height: 80px; border-radius: 50%; background: #1a1a1a; margin-bottom: 24px;
-            overflow: hidden; border: 1px solid rgba(255,255,255,0.1);
-        }
-        .avatar img { width: 100%; height: 100%; object-fit: cover; }
-        
-        h1 {
-            font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; letter-spacing: -0.03em; margin-bottom: 16px; line-height: 1.15;
-            background: linear-gradient(180deg, #fff 0%, #aaa 100%); 
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .hero-desc { font-size: 1.05rem; color: var(--text-muted); max-width: 500px; margin-bottom: 32px; font-weight: 400; line-height: 1.6; }
-        
-        .btn-group { display: flex; gap: 12px; margin-top: 30px; }
-        .btn { padding: 10px 20px; border-radius: 8px; font-size: 0.9rem; font-weight: 600; transition: all 0.2s ease; }
-        .btn-primary { background: #fff; color: #000; }
-        .btn-primary:hover { background: #e0e0e0; transform: translateY(-2px); }
-        .btn-glass { background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); color: #fff; }
-        .btn-glass:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.2); }
-
-        .stack-section { margin-top: 60px; }
-        .section-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 16px; font-weight: 600; opacity: 0.5; }
-        .stack-grid { display: flex; flex-wrap: wrap; gap: 10px; }
-        
-        .stack-chip {
-            background: var(--glass-bg); border: 1px solid var(--glass-border);
-            padding: 8px 16px; border-radius: 50px; font-size: 0.85rem; color: #d0d0d0;
-            display: flex; align-items: center; gap: 8px; cursor: pointer; transition: 0.2s;
-        }
-        .stack-chip:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.2); color: #fff; transform: translateY(-2px); }
-        .dot { width: 5px; height: 5px; background: #444; border-radius: 50%; transition: 0.2s; }
-        .stack-chip:hover .dot { background: #fff; box-shadow: 0 0 6px #fff; }
-
-        .section { padding: 60px 0; }
-        h2 { font-size: 1.5rem; margin-bottom: 24px; font-weight: 600; }
-        
-        .card {
-            display: block; background: var(--glass-bg); 
-            border: 1px solid var(--glass-border);
-            border-radius: 16px; padding: 24px; margin-bottom: 16px; position: relative; overflow: hidden;
-            transition: 0.3s ease; cursor: pointer;
-        }
-        .card:hover { 
-            border-color: rgba(255,255,255,0.15); 
-            transform: translateY(-4px); 
-            background: rgba(255,255,255,0.04);
-        }
-
-        .card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-        .card-title { font-size: 1.1rem; font-weight: 600; color: #fff; }
-        .badge { font-size: 0.7rem; font-weight: 600; background: rgba(255,255,255,0.08); padding: 4px 8px; border-radius: 6px; color: #bbb; }
-        .card-desc { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 20px; line-height: 1.5; }
-        .tech-tag { font-size: 0.75rem; color: #888; background: rgba(0,0,0,0.3); padding: 5px 10px; border-radius: 6px; }
-
-        .spotify-container { margin-top: 32px; width: 100%; max-width: 400px; }
-        .spotify-card {
-            display: flex; align-items: center; gap: 16px;
-            background: #0a0a0a;
-            border: 1px solid var(--glass-border);
-            border-radius: 12px; padding: 14px;
-            text-decoration: none; transition: 0.2s; cursor: default;
-        }
-        .spotify-card.playing {
-            cursor: pointer;
-            border-color: rgba(29, 185, 84, 0.3);
-            background: linear-gradient(90deg, rgba(29, 185, 84, 0.05) 0%, rgba(0,0,0,0) 100%);
-        }
-        .spotify-card.playing:hover { transform: translateY(-2px); border-color: var(--spotify-green); }
-        .sp-cover { width: 56px; height: 56px; border-radius: 8px; background-color: #222; background-size: cover; background-position: center; flex-shrink: 0; position: relative; }
-        .sp-info { flex-grow: 1; display: flex; flex-direction: column; overflow: hidden; min-width: 0; }
-        .sp-title { font-weight: 600; font-size: 0.9rem; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .sp-artist { font-size: 0.8rem; color: #888; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 6px; }
-        .sp-progress-bg { width: 100%; height: 4px; background: #333; border-radius: 2px; overflow: hidden; display: none; }
-        .sp-progress-fill { height: 100%; background: var(--spotify-green); width: 0%; border-radius: 2px; transition: width 1s linear; }
-        .sp-timestamps { display: flex; justify-content: space-between; font-size: 0.7rem; color: #666; margin-top: 4px; font-variant-numeric: tabular-nums; display: none; }
-        .spotify-card.playing .sp-progress-bg, .spotify-card.playing .sp-timestamps { display: flex; }
-
-        .blog-grid {
-            display: grid;
-            grid-template-columns: 1.5fr 1fr; 
-            gap: 20px;
-            align-items: start;
-        }
-
-        .tg-feed {
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            background: var(--glass-bg);
-            padding: 20px;
-            max-height: 600px; 
-            overflow-y: auto;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-            mask-image: linear-gradient(to bottom, black 90%, transparent 100%);
-            -webkit-mask-image: linear-gradient(to bottom, black 90%, transparent 100%);
-        }
-        .tg-feed::-webkit-scrollbar { display: none; }
-
-        .cat-widget {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 20px;
-            text-align: center;
-            position: sticky;
-            top: 100px;
-        }
-        .cat-image {
-            width: 100%; height: 200px; border-radius: 12px;
-            background: #111; object-fit: cover; margin-bottom: 15px;
-            transition: 0.3s; display: block;
-        }
-        .cat-btn {
-            width: 100%; background: #fff; color: #000; padding: 10px;
-            border-radius: 8px; font-weight: 600; font-size: 0.9rem; transition: 0.2s;
-        }
-        .cat-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px rgba(255,255,255,0.3); }
-        .cat-btn:active { transform: scale(0.95); }
-
-        .tg-widgets { display: flex; flex-direction: column; gap: 20px; width: 100%; }
-        .tg-widgets iframe { max-width: 100% !important; width: 100% !important; }
-
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); z-index: 100; opacity: 0; pointer-events: none; transition: 0.2s; display: flex; align-items: center; justify-content: center; padding: 20px; }
-        .modal-overlay.active { opacity: 1; pointer-events: all; }
-        .modal { background: #111; border: 1px solid #333; width: 100%; max-width: 420px; border-radius: 16px; padding: 24px; transform: scale(0.95); transition: 0.3s ease; }
-        .modal-overlay.active .modal { transform: scale(1); }
-        .modal-close { float: right; color: #666; font-size: 1.5rem; line-height: 1; }
-        .modal-close:hover { color: #fff; }
-        
-        footer { text-align: center; padding: 60px 0; font-size: 0.8rem; color: #444; }
-        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
-
-        @media (max-width: 700px) {
-            .nav-links { display: none; }
-            .hero { padding-top: 120px; }
-            .blog-grid { grid-template-columns: 1fr; }
-            .cat-widget { position: static; margin-bottom: 20px; }
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    
+    <!-- Preload Critical Assets -->
+    <link rel="preload" as="image" href="https://img.icons8.com/color/1200/vk-circled--v2.jpg">
+    
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="ambient-wrapper">
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
-    </div>
-
-    <nav>
-        <div class="nav-inner">
-            <div class="logo-block" onclick="window.scrollTo(0,0)" style="cursor:pointer">
-                <div class="logo-main">ilushadev<span class="cursor"></span></div>
-                <div class="logo-sub">aka ILODEV • made with <span class="heart">❤️</span></div>
-            </div>
-            <div class="nav-links">
-                <button class="nav-item" onclick="scrollToEl('projects')">Проекты</button>
-                <button class="nav-item" onclick="scrollToEl('contacts')">Блог & Cats</button>
-            </div>
-        </div>
-    </nav>
+    <div class="bg-vignette"></div>
 
     <div class="container">
-        <section class="hero">
-            <div class="avatar">
-                <img src="avatar.png" alt="" onerror="this.style.display='none'">
+        
+        <!-- НАВИГАЦИЯ -->
+        <nav class="glass-nav">
+            <div class="nav-container">
+                <div class="nav-indicator" id="nav-indicator"></div>
+                <button class="nav-btn active" data-tab="home">Главная</button>
+                <button class="nav-btn" data-tab="projects">Проекты</button>
+                <button class="nav-btn" data-tab="software">Софт</button>
+                <button class="nav-btn" data-tab="socials">Соцсети</button>
+                <button class="nav-btn" data-tab="cats">Котики</button>
             </div>
+        </nav>
 
-            <h1>Просто делаю крутые вещи.<br>Кодинг, геймдев и немного магии.</h1>
-            <p class="hero-desc">
-                Сейчас плотно сижу на Unreal Engine и Web-разработке. Стараюсь делать вещи, которыми самому приятно пользоваться.
-            </p>
+        <main id="content">
+            
+            <!-- ГЛАВНАЯ -->
+            <section id="home" class="tab-content active">
+                <div class="profile-card">
+                    <div class="avatar-wrapper">
+                        <img src="avatar.png" class="avatar" alt="Avatar" onerror="this.src='https://ui-avatars.com/api/?name=IL&background=111&color=fff&size=128'">
+                        <div class="status-dot online"></div>
+                    </div>
+                    <h1>Илья <span class="badge">DEV</span></h1>
+                    <p class="bio">Прикольный разработчик & UI дизайнер.<br>Создаю стиль и делаю по кайфу:3</p>
+                
+                    <div class="stack-row">
+                        <span class="pill">JS / TS</span>
+                        <span class="pill">Unreal Engine</span>
+                        <span class="pill">Electron</span>
+                    </div>
+                </div>
 
-            <div class="spotify-container">
-                <a id="spotify-link" target="_blank" class="spotify-card">
+                <div id="spotify-widget" class="spotify-card idle">
                     <div class="sp-cover" id="sp-cover"></div>
                     <div class="sp-info">
-                        <div class="sp-title" id="sp-title">Загрузка...</div>
-                        <div class="sp-artist" id="sp-artist">Проверка статуса</div>
-                        <div class="sp-progress-bg">
-                            <div class="sp-progress-fill" id="sp-fill"></div>
+                        <div class="sp-header">
+                            <i class="ri-spotify-fill"></i> <span id="sp-status-text">Spotify Offline</span>
                         </div>
-                        <div class="sp-timestamps">
-                            <span id="sp-curr">0:00</span>
-                            <span id="sp-total">0:00</span>
+                        <div class="sp-track-name" id="sp-song">Музыка не играет</div>
+                        <div class="sp-artist-name" id="sp-artist">...</div>
+                        <div class="sp-progress-bar">
+                            <div class="sp-progress-fill" id="sp-progress"></div>
                         </div>
                     </div>
-                </a>
-            </div>
-
-            <div class="btn-group">
-                <button class="btn btn-primary" onclick="openModal('about')">Обо мне</button>
-                <button class="btn btn-glass" onclick="scrollToEl('projects')">Мои проекты</button>
-            </div>
-
-            <div class="stack-section">
-                <div class="section-label">Мой стек</div>
-                <div class="stack-grid">
-                    <div class="stack-chip" onclick="openModal('unreal')"><div class="dot"></div>Unreal Engine 5</div>
-                    <div class="stack-chip" onclick="openModal('unity')"><div class="dot"></div>Unity</div>
-                    <div class="stack-chip" onclick="openModal('js')"><div class="dot"></div>JavaScript</div>
-                    <div class="stack-chip" onclick="openModal('electron')"><div class="dot"></div>Electron</div>
-                    <div class="stack-chip" onclick="window.open('https://github.com/yamixdev', '_blank')"><div class="dot" style="background:white;"></div>GitHub</div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <section id="projects" class="section">
-            <h2>Проекты</h2>
-            <div class="card" onclick="window.open('https://yamixdev.github.io/bio/', '_blank')">
-                <div class="card-top">
-                    <span class="card-title">Bio Page</span>
-                    <span class="badge">Live</span>
-                </div>
-                <p class="card-desc">Мой личный хаб в интернете. Абсолютный минимализм, никаких фреймворков, мгновенная загрузка.</p>
-                <div class="card-tech">
-                    <span class="tech-tag">HTML5</span>
-                    <span class="tech-tag">CSS3</span>
-                </div>
-            </div>
-            <div class="card" onclick="window.open('https://telegra.ph/VK-Desktop-Wrapper--bystryj-VK-klient-dlya-Windows-11-04', '_blank')">
-                <div class="card-top">
-                    <span class="card-title">VK Desktop</span>
-                    <span class="badge">Win</span>
-                </div>
-                <p class="card-desc">ВК как нормальная программа для Windows. Трей, Discord Rich Presence и нативные уведомления.</p>
-                <div class="card-tech">
-                    <span class="tech-tag">Electron</span>
-                    <span class="tech-tag">Node.js</span>
-                </div>
-            </div>
-        </section>
+            <!-- ПРОЕКТЫ -->
+            <section id="projects" class="tab-content">
+                <div class="grid-projects">
+                    <div class="card project" onclick="window.open('https://yamixdev.github.io/bio/', '_blank')">
+                        <div class="card-header">
+                            <h3>Bio Page</h3>
+                            <i class="ri-arrow-right-up-line"></i>
+                        </div>
+                        <p>Личный хаб. Минимализм, чистый HTML/CSS.</p>
+                        <div class="tags">
+                            <span class="tag-pill"><i class="ri-html5-fill"></i> Web</span>
+                            <span class="tag-pill"><i class="ri-layout-masonry-fill"></i> Frontend</span>
+                        </div>
+                    </div>
 
-        <section id="contacts" class="section">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-                <h2>Мой Блог</h2>
-                <a href="https://t.me/ilushadevz" target="_blank" class="badge" style="text-decoration:none; color:#fff; padding:8px 12px;">Канал ↗</a>
-            </div>
+                    <div class="card project" onclick="window.open('https://t.me/ilushadevz/186', '_blank')">
+                        <div class="card-header">
+                            <h3>VK Desktop</h3>
+                            <i class="ri-windows-fill"></i>
+                        </div>
+                        <p>Быстрый клиент ВК для ПК. Discord RPC, Трей.</p>
+                        <div class="tags">
+                            <span class="tag-pill"><i class="ri-hard-drive-2-fill"></i> Electron</span>
+                            <span class="tag-pill"><i class="ri-apps-fill"></i> App</span>
+                        </div>
+                    </div>
 
-            <div class="blog-grid">
-                <div class="tg-feed">
-                    <div class="tg-widgets">
-                        <script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-post="ilushadevz/3" data-width="100%" data-userpic="true" data-dark="1"></script>
-                        <script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-post="ilushadevz/2" data-width="100%" data-userpic="true" data-dark="1"></script>
+                    <div class="card project special-order" onclick="window.open('https://t.me/ilushadev', '_blank')">
+                        <div class="order-content">
+                            <div class="order-text">
+                                <h3>Заказать проект</h3>
+                                <p style="margin:0;">Сайт, бот или скрипт. Качественно.</p>
+                            </div>
+                            <div class="order-icon">
+                                <i class="ri-magic-line"></i>
+                            </div>
+                        </div>
                     </div>
                 </div>
+            </section>
 
-                <div class="cat-widget">
-                    <h3 style="font-size:1.1rem; margin-bottom:10px;">Cat Zone 😺</h3>
-                    <img id="cat-img" src="https://cataas.com/cat?width=300&height=200" class="cat-image" alt="Cute Cat">
-                    <button class="cat-btn" onclick="getNewCat()">Погладить (New Cat)</button>
+            <!-- СОФТ -->
+            <section id="software" class="tab-content">
+                <div class="software-list">
+                    
+                    <!-- 1. VK Desktop -->
+                    <div class="card soft-item" onclick="openModal('modal-vk')">
+                        <div class="soft-left">
+                            <div class="soft-icon">
+                                <img src="https://img.icons8.com/color/1200/vk-circled--v2.jpg" alt="VK" loading="lazy">
+                            </div>
+                            <div class="soft-info">
+                                <h3>VK Desktop</h3>
+                                <p>Оптимизированный клиент с Discord RPC.</p>
+                            </div>
+                        </div>
+                        <div class="soft-right">
+                            <span class="soft-ver">v1.1.3</span>
+                            <span class="soft-date" data-date="2025-12-12">...</span>
+                        </div>
+                    </div>
+
+                    <!-- 2. Zapret -->
+                    <div class="card soft-item" onclick="openModal('modal-zapret')">
+                        <div class="soft-left">
+                            <div class="soft-icon">
+                                <img src="https://cdn-icons-png.freepik.com/512/5968/5968756.png?ga=GA1.1.883190837.1766151681" alt="Zapret" loading="lazy">
+                            </div>
+                            <div class="soft-info">
+                                <h3>Zapret</h3>
+                                <p>Восстановление работы Discord и YouTube.</p>
+                            </div>
+                        </div>
+                        <div class="soft-right">
+                            <span class="soft-ver">v1.9.0b</span>
+                            <span class="soft-date" data-date="2025-10-29">...</span>
+                        </div>
+                    </div>
+
+                    <!-- 3. Hiddify -->
+                    <div class="card soft-item" onclick="openModal('modal-hiddify')">
+                        <div class="soft-left">
+                            <div class="soft-icon">
+                                <img src="https://raw.githubusercontent.com/hiddify/hiddify.com/refs/heads/main/docs/assets/ic_hiddify.png" alt="Hiddify" loading="lazy">
+                            </div>
+                            <div class="soft-info">
+                                <h3>Hiddify App</h3>
+                                <p>Универсальный прокси-клиент.</p>
+                            </div>
+                        </div>
+                        <div class="soft-right">
+                            <span class="soft-ver">v2.0.5</span>
+                            <span class="soft-date" data-date="2024-07-31">...</span>
+                        </div>
+                    </div>
+
+                    <!-- 4. Soon -->
+                    <div class="card soft-item disabled">
+                        <div class="soft-left">
+                            <div class="soft-icon soon">
+                                <div class="loader-spinner"></div>
+                            </div>
+                            <div class="soft-info">
+                                <h3>Скоро</h3>
+                                <p>Следите за обновлениями.</p>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <footer>&copy; 2025 ilushadev</footer>
+            <!-- СОЦСЕТИ -->
+            <section id="socials" class="tab-content">
+                <div class="list-links">
+                    <div onclick="window.open('https://t.me/ilushadevz', '_blank')" class="card link">
+                        <div class="link-left">
+                            <div class="icon-box"><i class="ri-telegram-fill"></i></div>
+                            <div class="link-text">
+                                <h3>Telegram канал</h3>
+                                <span>Блог разработчика</span>
+                            </div>
+                        </div>
+                        <i class="ri-arrow-right-s-line arrow"></i>
+                    </div>
+                    
+                    <div onclick="window.open('https://github.com/yamixdev', '_blank')" class="card link">
+                        <div class="link-left">
+                            <div class="icon-box"><i class="ri-github-fill"></i></div>
+                            <div class="link-text">
+                                <h3>GitHub</h3>
+                                <span>Исходный код</span>
+                            </div>
+                        </div>
+                        <i class="ri-arrow-right-s-line arrow"></i>
+                    </div>
+
+                    <div onclick="window.open('https://t.me/Ilushadev', '_blank')" class="card link">
+                        <div class="link-left">
+                            <div class="icon-box"><i class="ri-chat-3-fill"></i></div>
+                            <div class="link-text">
+                                <h3>Написать мне</h3>
+                                <span>Личные сообщения</span>
+                            </div>
+                        </div>
+                        <i class="ri-arrow-right-s-line arrow"></i>
+                    </div>
+                </div>
+            </section>
+
+            <!-- КОТИКИ -->
+            <section id="cats" class="tab-content">
+                <div class="cat-controls">
+                    <select id="cat-tag" class="cat-select" onchange="loadCat()">
+                        <option value="">Случайный</option>
+                        <option value="cute">Милый</option>
+                        <option value="funny">Смешной</option>
+                        <option value="black">Черный</option>
+                        <option value="orange">Рыжий</option>
+                        <option value="gif">GIF (Анимация)</option>
+                    </select>
+                </div>
+
+                <div class="cat-frame">
+                    <img id="cat-img" src="" alt="Cat">
+                    <div class="cat-loader" id="cat-loader">
+                        <div class="loader-status">
+                            <span class="status-word">Загрузка</span>
+                            <div class="loading-dots">
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                                <div class="dot"></div>
+                            </div>
+                        </div>
+                        <div class="cat-progress-wrap">
+                            <div class="cat-progress-bar" id="cat-progress"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="cat-actions">
+                    <button class="btn-primary" onclick="loadCat()">
+                        <i class="ri-refresh-line"></i> Следующий
+                    </button>
+                    <button class="btn-glass" onclick="downloadCat()">
+                        <i class="ri-download-line"></i> Скачать
+                    </button>
+                </div>
+            </section>
+
+        </main>
+        
+        <footer>
+            &copy; 2025 ilushadev. All rights reserved.
+        </footer>
     </div>
 
-    <div class="modal-overlay" id="overlay" onclick="if(event.target === this) closeModal()">
-        <div class="modal">
-            <button class="modal-close" onclick="closeModal()">×</button>
-            <h3 id="m-title" style="font-size:1.2rem; color:#fff; margin-bottom:12px;"></h3>
-            <p id="m-text" style="color:#bbb; line-height:1.6; margin-bottom:20px;"></p>
-            <div id="m-action"></div>
+    <!-- УВЕДОМЛЕНИЕ (TOAST) -->
+    <div id="toast" class="toast">
+        <i class="ri-checkbox-circle-fill"></i> Ссылка скопирована!
+    </div>
+
+    <!-- МОДАЛЬНЫЕ ОКНА -->
+    <div id="modal-overlay" class="modal-overlay" onclick="closeModal(event)">
+        
+        <!-- VK MODAL -->
+        <div id="modal-vk" class="modal-window">
+            <div class="modal-head">
+                <h2>VK Desktop</h2>
+                <span class="modal-ver">v1.1.3</span>
+            </div>
+            <div class="modal-body">
+                <h3>Что это?</h3>
+                <p>Это как обычный ВК, к которому вы привыкли, только с дополнительными крутыми функциями (Discord RPC, Трей, отсутствие рекламы). Ничего сложного в установке и использовании нет!</p>
+                
+                <h3>Что нового</h3>
+                <p>Исправления мелких багов, улучшенная работа Discord RPC. Стабильная версия.</p>
+                
+                <div class="info-note">
+                    <i class="ri-information-line"></i> Авто-обновление работает! Если у вас уже стоит программа, скачивать заново не обязательно.
+                </div>
+            </div>
+            <button class="btn-primary full-width" onclick="window.open('https://github.com/yamixdev/vk-desktop/releases/download/v1.1.3/VK-Desktop-Setup-1.1.3.exe')">
+                <i class="ri-download-fill"></i> Скачать EXE (Windows)
+            </button>
         </div>
+
+        <!-- ZAPRET MODAL -->
+        <div id="modal-zapret" class="modal-window">
+            <div class="modal-head">
+                <h2>Zapret</h2>
+                <span class="modal-ver">v1.9.0b</span>
+            </div>
+            <div class="modal-body scrollable">
+                <h3>Что нового</h3>
+                <p>Исправлена проблема, из-за которой не работал профиль обхода UDP GameFilter (1024-65535). Теперь сервера в Battlefield и других играх должны работать стабильно.</p>
+
+                <div class="alert-box warning">
+                    <i class="ri-alert-line"></i>
+                    <span>Важно: Перед началом включите <b>Secure DNS</b> в настройках браузера (или Windows 11).</span>
+                </div>
+
+                <div class="instruction-steps">
+                    <div class="step">
+                        <span class="step-num">1</span>
+                        <div class="step-content">
+                            <h4>Скачивание и Распаковка</h4>
+                            <p>Скачайте архив. Нажмите ПКМ по архиву -> Свойства -> Галочка <b>"Разблокировать"</b> (обязательно!). Распакуйте папку в корень диска (без пробелов).</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <span class="step-num">2</span>
+                        <div class="step-content">
+                            <h4>Поиск рабочей стратегии</h4>
+                            <p>Запускайте файлы <code>general-*.bat</code> по очереди от имени администратора. Не закрывайте черное окно и проверяйте YouTube/Discord.</p>
+                            <p style="color: #fff; font-weight: 600; margin-top:5px;">⚠️ Пробуйте ВСЕ файлы (general-alt, general-fake, general-mgm и т.д.) пока не заработает!</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <span class="step-num">3</span>
+                        <div class="step-content">
+                            <h4>Автозапуск (Service)</h4>
+                            <p>Нашли рабочий вариант? Закройте черное окно. Запустите <code>service.bat</code> -> выберите <b>Install Service</b> -> выберите ту стратегию, которая сработала.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="repo-link-box">
+                    <span>Есть вопросы или проблемы?</span>
+                    <a href="https://github.com/Flowseal/zapret-discord-youtube" target="_blank" class="link-simple">
+                        Открыть оригинальный репозиторий <i class="ri-external-link-line"></i>
+                    </a>
+                </div>
+
+                <h3 style="margin-top: 15px;">Скачать</h3>
+            </div>
+            <div class="modal-grid">
+                <button class="btn-glass" onclick="window.open('https://github.com/Flowseal/zapret-discord-youtube/releases/download/1.9.0b/zapret-discord-youtube-1.9.0b.rar')">
+                    <i class="ri-file-zip-line"></i> Скачать RAR
+                </button>
+                <button class="btn-glass" onclick="window.open('https://github.com/Flowseal/zapret-discord-youtube/releases/download/1.9.0b/zapret-discord-youtube-1.9.0b.zip')">
+                    <i class="ri-file-zip-line"></i> Скачать ZIP
+                </button>
+            </div>
+        </div>
+
+        <!-- HIDDIFY MODAL -->
+        <div id="modal-hiddify" class="modal-window">
+            <div class="modal-head">
+                <h2>Hiddify App</h2>
+                <span class="modal-ver">v2.0.5</span>
+            </div>
+            <div class="modal-body scrollable">
+                <h3>Что нового (Кратко)</h3>
+                <ul class="new-list">
+                    <li>Добавлено ядро <b>Xray Core</b> (работает вместе с Singbox).</li>
+                    <li>Новый <b>редактор конфигов</b> прямо внутри приложения.</li>
+                    <li>Поддержка <b>Split HTTP</b> для лучшего соединения.</li>
+                    <li>Улучшена работа WireGuard (IPv4 и IPv6).</li>
+                    <li>6 новых режимов для <b>Warp</b> + экспертные настройки.</li>
+                    <li>Исправление ошибок.</li>
+                </ul>
+
+                <h3 style="margin-top: 15px;">Бесплатный сервис (Нажми чтобы скопировать)</h3>
+                
+                <div class="copy-box clickable" onclick="copyText('https://etoneya.a9fm.site/1')">
+                    <span>Основа:</span>
+                    <div class="copy-link">etoneya.a9fm.site/1</div>
+                    <i class="ri-file-copy-line copy-icon"></i>
+                </div>
+                <div class="copy-box clickable" onclick="copyText('https://alley.serv00.net/1')">
+                    <span>Зеркало 1:</span>
+                    <div class="copy-link">alley.serv00.net/1</div>
+                    <i class="ri-file-copy-line copy-icon"></i>
+                </div>
+                <div class="copy-box clickable" onclick="copyText('https://raw.githubusercontent.com/EtoNeYaProject/etoneyaproject.github.io/refs/heads/main/1')">
+                    <span>Зеркало 2:</span>
+                    <div class="copy-link">GitHub Mirror</div>
+                    <i class="ri-file-copy-line copy-icon"></i>
+                </div>
+
+                <div class="alert-box tip" style="margin-top: 15px;">
+                    <i class="ri-smartphone-line"></i>
+                    <span><b>Не грузит профиль?</b> Мобильные операторы могут блокировать загрузку. Подключитесь к Wi-Fi, загрузите профиль, и потом пользуйтесь на мобильном интернете.</span>
+                </div>
+
+                <div class="instruction-box" style="margin-top: 15px;">
+                    <h4><i class="ri-book-open-line"></i> Инструкция:</h4>
+                    <ol>
+                        <li>Нажмите на любой блок выше (ссылка скопируется).</li>
+                        <li>В приложении нажмите <b>"+"</b> -> <b>"Добавить из буфера"</b>.</li>
+                        <li>Нажмите большую кнопку подключения посередине.</li>
+                        <li><b>Выбор сервера:</b> Внизу нажмите <span style="background:#333; padding:2px 6px; border-radius:4px;">Прокси</span>. Сверху нажмите <i class="ri-flashlight-fill" style="color:#ffcc00"></i> (Молния) — это проверит пинг. Выбирайте сервер с зеленым значением.</li>
+                    </ol>
+                </div>
+
+                <h3 style="margin-top:15px">Скачать клиент</h3>
+                <div class="modal-grid">
+                    <button class="btn-glass" onclick="window.open('https://github.com/hiddify/hiddify-next/releases/download/v2.0.5/Hiddify-iOS.ipa')">
+                        <i class="ri-apple-fill"></i> iOS (IPA)
+                    </button>
+                    <button class="btn-glass" onclick="window.open('https://github.com/hiddify/hiddify-next/releases/download/v2.0.5/Hiddify-Android-universal.apk')">
+                        <i class="ri-android-fill"></i> Android
+                    </button>
+                    <button class="btn-glass" onclick="window.open('https://github.com/hiddify/hiddify-next/releases/download/v2.0.5/Hiddify-Windows-Setup-x64.exe')">
+                        <i class="ri-windows-fill"></i> Win Setup
+                    </button>
+                    <button class="btn-glass" onclick="window.open('https://github.com/hiddify/hiddify-next/releases/download/v2.0.5/Hiddify-Windows-Portable-x64.zip')">
+                        <i class="ri-hard-drive-line"></i> Win Portable
+                    </button>
+                </div>
+            </div>
+        </div>
+
     </div>
 
-    <script>
-        const DISCORD_ID = '835456105328410625';
-
-        function getNewCat() {
-            const img = document.getElementById('cat-img');
-            img.src = 'https://cataas.com/cat?width=300&height=200&t=' + new Date().getTime();
-        }
-
-        const spCard = document.getElementById('spotify-link');
-        const spTitle = document.getElementById('sp-title');
-        const spArtist = document.getElementById('sp-artist');
-        const spCover = document.getElementById('sp-cover');
-        const spFill = document.getElementById('sp-fill');
-        const spCurr = document.getElementById('sp-curr');
-        const spTotal = document.getElementById('sp-total');
-
-        function formatTime(ms) {
-            const s = Math.floor((ms / 1000) % 60);
-            const m = Math.floor((ms / 1000) / 60);
-            return `${m}:${s < 10 ? '0'+s : s}`;
-        }
-
-        async function updateSpotify() {
-            try {
-                const res = await fetch(`https://api.lanyard.rest/v1/users/${DISCORD_ID}`);
-                const json = await res.json();
-                const d = json.data;
-
-                if (d && d.listening_to_spotify) {
-                    const s = d.spotify;
-                    const total = s.timestamps.end - s.timestamps.start;
-                    const current = Date.now() - s.timestamps.start;
-                    const percent = (current / total) * 100;
-
-                    spCard.classList.add('playing');
-                    spCard.href = `https://open.spotify.com/track/${s.track_id}`;
-                    
-                    spTitle.innerText = s.song;
-                    spArtist.innerText = s.artist.replaceAll(';', ',');
-                    spCover.style.backgroundImage = `url(${s.album_art_url})`;
-                    
-                    spFill.style.width = `${Math.min(100, Math.max(0, percent))}%`;
-                    spCurr.innerText = formatTime(current);
-                    spTotal.innerText = formatTime(total);
-                } else {
-                    spCard.classList.remove('playing');
-                    spCard.removeAttribute('href');
-                    spTitle.innerText = "Ну не слушаю :)";
-                    spArtist.innerText = "Spotify Offline";
-                    spCover.style.backgroundImage = 'none';
-                    spCover.style.backgroundColor = '#1a1a1a';
-                }
-            } catch (e) { console.error(e); }
-        }
-
-        updateSpotify();
-        setInterval(updateSpotify, 1000);
-
-        const data = {
-            about: { t: "Обо мне", d: "Йо! Я Илья. Мне нравится программирование и разработка игр. Пишу код, который работает быстро и выглядит красиво.", l: "https://t.me/ilushadevz", b: "Написать мне" },
-            unreal: { t: "Unreal Engine 5", d: "Мощный инструмент для AAA-игр. Blueprints + C++.", l: "https://www.unrealengine.com", b: "Сайт движка" },
-            unity: { t: "Unity", d: "Идеален для инди-проектов и мобильных игр.", l: "https://unity.com", b: "Сайт движка" },
-            js: { t: "JavaScript", d: "Язык веба. Использую Vanilla JS.", l: null },
-            electron: { t: "Electron", d: "Технология для создания десктопных приложений на веб-стеке.", l: "https://www.electronjs.org", b: "Документация" }
-        };
-        const overlay = document.getElementById('overlay');
-        const mTitle = document.getElementById('m-title');
-        const mText = document.getElementById('m-text');
-        const mAction = document.getElementById('m-action');
-        function openModal(key) {
-            const item = data[key]; if(!item) return;
-            mTitle.innerText = item.t; mText.innerText = item.d;
-            mAction.innerHTML = item.l ? `<a href="${item.l}" target="_blank" class="btn btn-primary" style="display:block; text-align:center; width:100%;">${item.b || 'Подробнее'}</a>` : '';
-            overlay.classList.add('active'); document.body.style.overflow = 'hidden';
-        }
-        function closeModal() { overlay.classList.remove('active'); document.body.style.overflow = ''; }
-        function scrollToEl(id) { const el = document.getElementById(id); window.scrollTo({top: el.offsetTop - 100, behavior: 'smooth'}); }
-        document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeModal(); });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
