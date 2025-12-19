@@ -3,14 +3,17 @@ MIT License (Modified for Design Protection)
 Copyright (c) 2025 IlushaDev (yamixdev)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to study
-and learn from the source code.
+of this software and associated documentation files (the "Software"), to use
+the source code for educational and learning purposes.
 
-HOWEVER, THE FOLLOWING RESTRICTIONS APPLY:
+CONDITIONS & RESTRICTIONS:
 
-1. You may NOT use the design assets, layout, or visual style of this website 
-   for your own public portfolio or commercial projects without significant modification.
-2. You may NOT remove the author's credits (comments in HTML) if you reuse parts of the code.
+1. DESIGN PROTECTION: The visual design, layout, graphics, and overall "look and feel" 
+   of this website are proprietary to the author. You may NOT use them for your own 
+   public portfolio or commercial projects without significant modification.
+
+2. ATTRIBUTION: You may not remove the author's credits (comments in HTML/CSS/JS) 
+   if you reuse substantial portions of the source code.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
