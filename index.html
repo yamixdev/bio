@@ -6,26 +6,17 @@
     <meta name="description" content="ilushadev - Personal Portfolio & Software">
     <meta name="theme-color" content="#050505">
     <title>ilushadev</title>
-    
-    <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
-    
-    <!-- Preload Critical Assets -->
-    <link rel="preload" as="image" href="https://img.icons8.com/color/1200/vk-circled--v2.jpg">
-    
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <div class="bg-vignette"></div>
-
     <div class="container">
         
-        <!-- НАВИГАЦИЯ -->
-        <nav class="glass-nav">
+        <nav class="glass-nav" aria-label="Main Navigation">
             <div class="nav-container">
                 <div class="nav-indicator" id="nav-indicator"></div>
                 <button class="nav-btn active" data-tab="home">Главная</button>
@@ -37,8 +28,6 @@
         </nav>
 
         <main id="content">
-            
-            <!-- ГЛАВНАЯ -->
             <section id="home" class="tab-content active">
                 <div class="profile-card">
                     <div class="avatar-wrapper">
@@ -46,77 +35,88 @@
                         <div class="status-dot online"></div>
                     </div>
                     <h1>Илья <span class="badge">DEV</span></h1>
-                    <p class="bio">Прикольный разработчик & UI дизайнер.<br>Создаю стиль и делаю по кайфу:3</p>
-                
+                    <p class="bio">Прикольный разработчик & UI дизайнер.<br>Создаю стиль и делаю по кайфу</p>
                     <div class="stack-row">
-                        <span class="pill">JS / TS</span>
-                        <span class="pill">Unreal Engine</span>
-                        <span class="pill">Electron</span>
+                        <div data-url="https://developer.mozilla.org/ru/docs/Web/JavaScript" class="pill">JS / TS</div>
+                        <div data-url="https://go.dev/" class="pill">Golang</div>
+                        <div data-url="https://electronjs.org/" class="pill">Electron</div>
                     </div>
                 </div>
 
                 <div id="spotify-widget" class="spotify-card idle">
-                    <div class="sp-cover" id="sp-cover"></div>
+                    <div class="sp-cover" id="sp-cover">
+                        <div class="sp-eq" id="sp-eq">
+                            <div class="eq-bar"></div>
+                            <div class="eq-bar"></div>
+                            <div class="eq-bar"></div>
+                        </div>
+                    </div>
                     <div class="sp-info">
                         <div class="sp-header">
-                            <i class="ri-spotify-fill"></i> <span id="sp-status-text">Spotify Offline</span>
+                            <i class="ri-spotify-fill"></i> <span id="sp-status-text">Музыка на паузе</span>
                         </div>
-                        <div class="sp-track-name" id="sp-song">Музыка не играет</div>
+                        <div class="sp-track-name" id="sp-song">Сейчас я не слушаю Spotify</div>
                         <div class="sp-artist-name" id="sp-artist">...</div>
-                        <div class="sp-progress-bar">
-                            <div class="sp-progress-fill" id="sp-progress"></div>
+                        
+                        <div class="sp-progress-container" id="sp-progress-container">
+                            <span class="sp-time" id="sp-time-current">0:00</span>
+                            <div class="sp-progress-bar">
+                                <div class="sp-progress-fill" id="sp-progress"></div>
+                            </div>
+                            <span class="sp-time" id="sp-time-end">0:00</span>
+                        </div>
+
+                        <div class="sp-teaser" id="sp-teaser">
+                            <span class="material-symbols-rounded icon-sm">rocket_launch</span> 
+                            В планах: Свой стриминг-плеер
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- ПРОЕКТЫ -->
             <section id="projects" class="tab-content">
                 <div class="grid-projects">
-                    <div class="card project" onclick="window.open('https://yamixdev.github.io/bio/', '_blank')">
+                    <div class="card project glow-blue" data-url="https://yamixdev.github.io/bio/">
                         <div class="card-header">
                             <h3>Bio Page</h3>
-                            <i class="ri-arrow-right-up-line"></i>
+                            <span class="material-symbols-rounded">open_in_new</span>
                         </div>
                         <p>Личный хаб. Минимализм, чистый HTML/CSS.</p>
                         <div class="tags">
-                            <span class="tag-pill"><i class="ri-html5-fill"></i> Web</span>
-                            <span class="tag-pill"><i class="ri-layout-masonry-fill"></i> Frontend</span>
+                            <span class="tag-pill"><span class="material-symbols-rounded icon-sm">language</span> Web</span>
+                            <span class="tag-pill"><span class="material-symbols-rounded icon-sm">code</span> Frontend</span>
                         </div>
                     </div>
 
-                    <div class="card project" onclick="window.open('https://t.me/ilushadevz/186', '_blank')">
+                    <div class="card project glow-purple" data-url="https://t.me/ilushadevz/186">
                         <div class="card-header">
                             <h3>VK Desktop</h3>
-                            <i class="ri-windows-fill"></i>
+                            <span class="material-symbols-rounded">desktop_windows</span>
                         </div>
                         <p>Быстрый клиент ВК для ПК. Discord RPC, Трей.</p>
                         <div class="tags">
-                            <span class="tag-pill"><i class="ri-hard-drive-2-fill"></i> Electron</span>
-                            <span class="tag-pill"><i class="ri-apps-fill"></i> App</span>
+                            <span class="tag-pill"><span class="material-symbols-rounded icon-sm">terminal</span> Electron</span>
+                            <span class="tag-pill"><span class="material-symbols-rounded icon-sm">grid_view</span> App</span>
                         </div>
                     </div>
 
-                    <div class="card project special-order" onclick="window.open('https://t.me/ilushadev', '_blank')">
+                    <div class="card project special-order glow-gold" data-url="https://t.me/ilushadev">
                         <div class="order-content">
                             <div class="order-text">
                                 <h3>Заказать проект</h3>
-                                <p style="margin:0;">Сайт, бот или скрипт. Качественно.</p>
+                                <p class="text-sm text-muted">Сайт, бот или скрипт. Качественно.</p>
                             </div>
                             <div class="order-icon">
-                                <i class="ri-magic-line"></i>
+                                <span class="material-symbols-rounded">magic_button</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- СОФТ -->
             <section id="software" class="tab-content">
                 <div class="software-list">
-                    
-                    <!-- 1. VK Desktop -->
-                    <div class="card soft-item" onclick="openModal('modal-vk')">
+                    <div class="card soft-item" data-modal="modal-vk">
                         <div class="soft-left">
                             <div class="soft-icon">
                                 <img src="https://img.icons8.com/color/1200/vk-circled--v2.jpg" alt="VK" loading="lazy">
@@ -132,11 +132,10 @@
                         </div>
                     </div>
 
-                    <!-- 2. Zapret -->
-                    <div class="card soft-item" onclick="openModal('modal-zapret')">
+                    <div class="card soft-item" data-modal="modal-zapret">
                         <div class="soft-left">
                             <div class="soft-icon">
-                                <img src="https://cdn-icons-png.freepik.com/512/5968/5968756.png?ga=GA1.1.883190837.1766151681" alt="Zapret" loading="lazy">
+                                <img src="https://cdn-icons-png.freepik.com/512/5968/5968756.png" alt="Zapret" loading="lazy">
                             </div>
                             <div class="soft-info">
                                 <h3>Zapret</h3>
@@ -144,13 +143,12 @@
                             </div>
                         </div>
                         <div class="soft-right">
-                            <span class="soft-ver">v1.9.0b</span>
-                            <span class="soft-date" data-date="2025-10-29">...</span>
+                            <span class="soft-ver">v1.9.7</span>
+                            <span class="soft-date" data-date="2026-02-15">...</span>
                         </div>
                     </div>
 
-                    <!-- 3. Hiddify -->
-                    <div class="card soft-item" onclick="openModal('modal-hiddify')">
+                    <div class="card soft-item" data-modal="modal-hiddify">
                         <div class="soft-left">
                             <div class="soft-icon">
                                 <img src="https://raw.githubusercontent.com/hiddify/hiddify.com/refs/heads/main/docs/assets/ic_hiddify.png" alt="Hiddify" loading="lazy">
@@ -161,31 +159,16 @@
                             </div>
                         </div>
                         <div class="soft-right">
-                            <span class="soft-ver">v2.0.5</span>
-                            <span class="soft-date" data-date="2024-07-31">...</span>
+                            <span class="soft-ver">v4.0.4</span>
+                            <span class="soft-date" data-date="2026-02-19">...</span>
                         </div>
                     </div>
-
-                    <!-- 4. Soon -->
-                    <div class="card soft-item disabled">
-                        <div class="soft-left">
-                            <div class="soft-icon soon">
-                                <div class="loader-spinner"></div>
-                            </div>
-                            <div class="soft-info">
-                                <h3>Скоро</h3>
-                                <p>Следите за обновлениями.</p>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
             </section>
 
-            <!-- СОЦСЕТИ -->
             <section id="socials" class="tab-content">
                 <div class="list-links">
-                    <div onclick="window.open('https://t.me/ilushadevz', '_blank')" class="card link">
+                    <div data-url="https://t.me/ilushadevz" class="card link">
                         <div class="link-left">
                             <div class="icon-box"><i class="ri-telegram-fill"></i></div>
                             <div class="link-text">
@@ -193,10 +176,10 @@
                                 <span>Блог разработчика</span>
                             </div>
                         </div>
-                        <i class="ri-arrow-right-s-line arrow"></i>
+                        <span class="material-symbols-rounded arrow">chevron_right</span>
                     </div>
-                    
-                    <div onclick="window.open('https://github.com/yamixdev', '_blank')" class="card link">
+
+                    <div data-url="https://github.com/yamixdev" class="card link">
                         <div class="link-left">
                             <div class="icon-box"><i class="ri-github-fill"></i></div>
                             <div class="link-text">
@@ -204,10 +187,10 @@
                                 <span>Исходный код</span>
                             </div>
                         </div>
-                        <i class="ri-arrow-right-s-line arrow"></i>
+                        <span class="material-symbols-rounded arrow">chevron_right</span>
                     </div>
 
-                    <div onclick="window.open('https://t.me/Ilushadev', '_blank')" class="card link">
+                    <div data-url="https://t.me/Ilushadev" class="card link">
                         <div class="link-left">
                             <div class="icon-box"><i class="ri-chat-3-fill"></i></div>
                             <div class="link-text">
@@ -215,212 +198,298 @@
                                 <span>Личные сообщения</span>
                             </div>
                         </div>
-                        <i class="ri-arrow-right-s-line arrow"></i>
+                        <span class="material-symbols-rounded arrow">chevron_right</span>
                     </div>
                 </div>
             </section>
 
-            <!-- КОТИКИ -->
             <section id="cats" class="tab-content">
-                <div class="cat-controls">
-                    <select id="cat-tag" class="cat-select" onchange="loadCat()">
-                        <option value="">Случайный</option>
-                        <option value="cute">Милый</option>
-                        <option value="funny">Смешной</option>
-                        <option value="black">Черный</option>
-                        <option value="orange">Рыжий</option>
-                        <option value="gif">GIF (Анимация)</option>
-                    </select>
+                <div class="cat-top-bar">
+                    <div class="cat-input-group" id="cat-search-group">
+                        <span class="material-symbols-rounded search-icon">search</span>
+                        <input type="text" id="cat-search" list="cat-tags" placeholder="Тег или пусто..." autocomplete="off">
+                        <datalist id="cat-tags">
+                            <option value="cute">Милый</option>
+                            <option value="funny">Смешной</option>
+                            <option value="sleep">Спящий</option>
+                            <option value="angry">Злой</option>
+                            <option value="kitten">Котёнок</option>
+                            <option value="orange">Рыжий</option>
+                        </datalist>
+                        <button class="btn-search-cat" id="btn-cat-search"><span class="material-symbols-rounded icon-sm">send</span></button>
+                    </div>
+                    <button class="btn-glass icon-only" data-modal="modal-cat-settings" aria-label="Settings">
+                        <span class="material-symbols-rounded">settings</span>
+                    </button>
                 </div>
 
                 <div class="cat-frame">
-                    <img id="cat-img" src="" alt="Cat">
-                    <div class="cat-loader" id="cat-loader">
-                        <div class="loader-status">
-                            <span class="status-word">Загрузка</span>
-                            <div class="loading-dots">
-                                <div class="dot"></div>
-                                <div class="dot"></div>
-                                <div class="dot"></div>
-                            </div>
-                        </div>
-                        <div class="cat-progress-wrap">
-                            <div class="cat-progress-bar" id="cat-progress"></div>
-                        </div>
+                    <div class="cat-waiting" id="cat-waiting">
+                        <span class="material-symbols-rounded cat-wait-icon">pets</span>
+                        <p>Готов к просмотру котиков?</p>
+                        <button class="btn-primary mt-10" id="btn-wait-start">Найти котика</button>
                     </div>
+                    <div class="skeleton cat-skeleton" id="cat-skeleton"></div>
+                    <img id="cat-img" src="" alt="Cat">
+                    <div class="cat-error-overlay" id="cat-error">
+                        <h3 id="cat-err-title">Ошибка</h3>
+                        <p id="cat-err-desc">Что-то пошло не так</p>
+                    </div>
+                    <div class="cat-source-badge" id="cat-source" style="display:none;"></div>
                 </div>
                 
-                <div class="cat-actions">
-                    <button class="btn-primary" onclick="loadCat()">
-                        <i class="ri-refresh-line"></i> Следующий
+                <div class="cat-terminal" id="cat-terminal">Ожидание действий...</div>
+
+                <div class="cat-actions mt-10" id="cat-actions" style="display:none;">
+                    <button class="btn-primary" id="btn-cat-next">
+                        <span class="material-symbols-rounded">refresh</span> Следующий
                     </button>
-                    <button class="btn-glass" onclick="downloadCat()">
-                        <i class="ri-download-line"></i> Скачать
+                    <button class="btn-glass" id="btn-cat-download">
+                        <span class="material-symbols-rounded">download</span> Скачать
                     </button>
                 </div>
             </section>
-
         </main>
-        
+
         <footer>
-            &copy; 2025 ilushadev. All rights reserved.
+            &copy; 2026 ilushadev. All rights reserved.
         </footer>
     </div>
 
-    <!-- УВЕДОМЛЕНИЕ (TOAST) -->
-    <div id="toast" class="toast">
-        <i class="ri-checkbox-circle-fill"></i> Ссылка скопирована!
+    <div id="lightbox" class="lightbox">
+        <button id="lightbox-close" class="modal-close"><span class="material-symbols-rounded">close</span></button>
+        <img id="lightbox-img" src="" alt="Fullscreen Cat">
     </div>
 
-    <!-- МОДАЛЬНЫЕ ОКНА -->
-    <div id="modal-overlay" class="modal-overlay" onclick="closeModal(event)">
-        
-        <!-- VK MODAL -->
-        <div id="modal-vk" class="modal-window">
-            <div class="modal-head">
-                <h2>VK Desktop</h2>
-                <span class="modal-ver">v1.1.3</span>
-            </div>
-            <div class="modal-body">
-                <h3>Что это?</h3>
-                <p>Это как обычный ВК, к которому вы привыкли, только с дополнительными крутыми функциями (Discord RPC, Трей, отсутствие рекламы). Ничего сложного в установке и использовании нет!</p>
-                
-                <h3>Что нового</h3>
-                <p>Исправления мелких багов, улучшенная работа Discord RPC. Стабильная версия.</p>
-                
-                <div class="info-note">
-                    <i class="ri-information-line"></i> Авто-обновление работает! Если у вас уже стоит программа, скачивать заново не обязательно.
-                </div>
-            </div>
-            <button class="btn-primary full-width" onclick="window.open('https://github.com/yamixdev/vk-desktop/releases/download/v1.1.3/VK-Desktop-Setup-1.1.3.exe')">
-                <i class="ri-download-fill"></i> Скачать EXE (Windows)
-            </button>
-        </div>
+    <div id="toast" class="toast">
+        <span class="material-symbols-rounded" id="toast-icon">check_circle</span> 
+        <span id="toast-msg"></span>
+    </div>
 
-        <!-- ZAPRET MODAL -->
-        <div id="modal-zapret" class="modal-window">
-            <div class="modal-head">
-                <h2>Zapret</h2>
-                <span class="modal-ver">v1.9.0b</span>
+    <div id="modal-overlay" class="modal-overlay">
+        <!-- Настройки котиков -->
+        <div id="modal-cat-settings" class="modal-window">
+            <div class="modal-drag-area drag-target"><div class="modal-drag-handle"></div></div>
+            <div class="modal-head drag-target">
+                <h2>Настройки Cat-API</h2>
+                <button class="modal-close"><span class="material-symbols-rounded">close</span></button>
             </div>
-            <div class="modal-body scrollable">
-                <h3>Что нового</h3>
-                <p>Исправлена проблема, из-за которой не работал профиль обхода UDP GameFilter (1024-65535). Теперь сервера в Battlefield и других играх должны работать стабильно.</p>
-
-                <div class="alert-box warning">
-                    <i class="ri-alert-line"></i>
-                    <span>Важно: Перед началом включите <b>Secure DNS</b> в настройках браузера (или Windows 11).</span>
-                </div>
-
-                <div class="instruction-steps">
-                    <div class="step">
-                        <span class="step-num">1</span>
-                        <div class="step-content">
-                            <h4>Скачивание и Распаковка</h4>
-                            <p>Скачайте архив. Нажмите ПКМ по архиву -> Свойства -> Галочка <b>"Разблокировать"</b> (обязательно!). Распакуйте папку в корень диска (без пробелов).</p>
+            <div class="modal-body scrollable-content">
+                <p>Балансировщик сам выберет сервер. Поиск по тегу работает только через Cataas API.</p>
+                <div class="radio-group mt-20">
+                    <label class="radio-item">
+                        <input type="radio" name="cat-api" value="auto" checked>
+                        <span class="radio-custom"></span>
+                        <div class="radio-text">
+                            <b>АВТО (Балансировщик)</b>
+                            <span>Самый быстрый сервер</span>
                         </div>
-                    </div>
-
-                    <div class="step">
-                        <span class="step-num">2</span>
-                        <div class="step-content">
-                            <h4>Поиск рабочей стратегии</h4>
-                            <p>Запускайте файлы <code>general-*.bat</code> по очереди от имени администратора. Не закрывайте черное окно и проверяйте YouTube/Discord.</p>
-                            <p style="color: #fff; font-weight: 600; margin-top:5px;">⚠️ Пробуйте ВСЕ файлы (general-alt, general-fake, general-mgm и т.д.) пока не заработает!</p>
-                        </div>
-                    </div>
-
-                    <div class="step">
-                        <span class="step-num">3</span>
-                        <div class="step-content">
-                            <h4>Автозапуск (Service)</h4>
-                            <p>Нашли рабочий вариант? Закройте черное окно. Запустите <code>service.bat</code> -> выберите <b>Install Service</b> -> выберите ту стратегию, которая сработала.</p>
-                        </div>
-                    </div>
+                    </label>
+                    <label class="radio-item">
+                        <input type="radio" name="cat-api" value="thecatapi">
+                        <span class="radio-custom"></span>
+                        <div class="radio-text"><b>TheCatAPI</b> <span>Самый стабильный</span></div>
+                    </label>
+                    <label class="radio-item">
+                        <input type="radio" name="cat-api" value="shibe">
+                        <span class="radio-custom"></span>
+                        <div class="radio-text"><b>Shibe.online</b> <span>Быстрый, без тегов</span></div>
+                    </label>
+                    <label class="radio-item">
+                        <input type="radio" name="cat-api" value="cataas">
+                        <span class="radio-custom"></span>
+                        <div class="radio-text"><b>Cataas</b> <span>Поддержка тегов</span></div>
+                    </label>
                 </div>
-                
-                <div class="repo-link-box">
-                    <span>Есть вопросы или проблемы?</span>
-                    <a href="https://github.com/Flowseal/zapret-discord-youtube" target="_blank" class="link-simple">
-                        Открыть оригинальный репозиторий <i class="ri-external-link-line"></i>
-                    </a>
-                </div>
-
-                <h3 style="margin-top: 15px;">Скачать</h3>
-            </div>
-            <div class="modal-grid">
-                <button class="btn-glass" onclick="window.open('https://github.com/Flowseal/zapret-discord-youtube/releases/download/1.9.0b/zapret-discord-youtube-1.9.0b.rar')">
-                    <i class="ri-file-zip-line"></i> Скачать RAR
-                </button>
-                <button class="btn-glass" onclick="window.open('https://github.com/Flowseal/zapret-discord-youtube/releases/download/1.9.0b/zapret-discord-youtube-1.9.0b.zip')">
-                    <i class="ri-file-zip-line"></i> Скачать ZIP
-                </button>
             </div>
         </div>
 
-        <!-- HIDDIFY MODAL -->
+        <!-- Hiddify -->
         <div id="modal-hiddify" class="modal-window">
-            <div class="modal-head">
-                <h2>Hiddify App</h2>
-                <span class="modal-ver">v2.0.5</span>
+            <div class="modal-drag-area drag-target"><div class="modal-drag-handle"></div></div>
+            <div class="hiddify-view active" id="h-view-main">
+                <div class="modal-head drag-target">
+                    <div class="modal-title-row">
+                        <h2>Hiddify App</h2>
+                        <span class="modal-ver">v4.0.4</span>
+                    </div>
+                    <button class="modal-close"><span class="material-symbols-rounded">close</span></button>
+                </div>
+                <div class="modal-body scrollable-content">
+                    <h3>Что нового (Выжимка)</h3>
+                    <ul class="new-list green-bullets">
+                        <li>Новый встроенный <b>JSON-редактор</b> конфигураций.</li>
+                        <li>Поддержка режимов <b>Fragment, TPROXY, REDIRECT</b>.</li>
+                        <li><b>Android:</b> Поддержка HiddifyRPC и детальные уведомления.</li>
+                        <li><b>macOS:</b> Долгожданная поддержка автозапуска.</li>
+                        <li>Глобальный редизайн интерфейса.</li>
+                    </ul>
+                    <h3 class="mt-20">Бесплатный сервис</h3>
+                    <div class="copy-box" data-copy="https://etoneya.a9fm.site/1">
+                        <span>Основа:</span>
+                        <div class="copy-link">etoneya.a9fm.site/1</div>
+                        <span class="material-symbols-rounded copy-icon">content_copy</span>
+                    </div>
+                    <div class="alert-box tip mt-20">
+                        <span class="material-symbols-rounded">info</span>
+                        <div>
+                            <b class="text-white">Не грузит профиль?</b><br>
+                            Подключитесь к Wi-Fi для скачивания настроек.
+                        </div>
+                    </div>
+                    <h3 class="mt-20">Выбор платформы</h3>
+                    <div class="modal-grid-4 mt-10">
+                        <button class="btn-glass" data-h-target="h-view-android"><span class="material-symbols-rounded">android</span> Android</button>
+                        <button class="btn-glass" data-h-target="h-view-win"><span class="material-symbols-rounded">window</span> Windows</button>
+                        <button class="btn-glass" data-h-target="h-view-mac"><span class="material-symbols-rounded">laptop_mac</span> macOS</button>
+                        <button class="btn-glass" data-h-target="h-view-linux"><span class="material-symbols-rounded">linux</span> Linux</button>
+                        <button class="btn-glass full-row" data-h-target="ios"><span class="material-symbols-rounded">apple</span> Apple iOS</button>
+                    </div>
+                </div>
             </div>
-            <div class="modal-body scrollable">
-                <h3>Что нового (Кратко)</h3>
-                <ul class="new-list">
-                    <li>Добавлено ядро <b>Xray Core</b> (работает вместе с Singbox).</li>
-                    <li>Новый <b>редактор конфигов</b> прямо внутри приложения.</li>
-                    <li>Поддержка <b>Split HTTP</b> для лучшего соединения.</li>
-                    <li>Улучшена работа WireGuard (IPv4 и IPv6).</li>
-                    <li>6 новых режимов для <b>Warp</b> + экспертные настройки.</li>
-                    <li>Исправление ошибок.</li>
+
+            <!-- Hiddify Подменю Android -->
+            <div class="hiddify-view" id="h-view-android">
+                <div class="modal-head drag-target">
+                    <button class="btn-icon-text h-back"><span class="material-symbols-rounded">arrow_back</span> Назад</button>
+                    <button class="modal-close"><span class="material-symbols-rounded">close</span></button>
+                </div>
+                <div class="modal-body scrollable-content">
+                    <h2 class="mb-10 text-white">Android Загрузки</h2>
+                    <div class="alert-box tip mb-20">
+                        <span class="material-symbols-rounded">help</span>
+                        <span>Не разбираешься? Качай версию <b>Universal</b> — подойдет для 99% смартфонов!</span>
+                    </div>
+                    <div class="list-links">
+                        <button class="btn-glass justify-start" data-download="https://github.com/hiddify/hiddify-app/releases/download/v4.0.4/Hiddify-Android-universal.apk"><span class="material-symbols-rounded">download</span> APK Universal</button>
+                        <button class="btn-glass justify-start" data-download="https://github.com/hiddify/hiddify-app/releases/download/v4.0.4/Hiddify-Android-arm64.apk"><span class="material-symbols-rounded">memory</span> APK ARMv8</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hiddify Подменю Windows -->
+            <div class="hiddify-view" id="h-view-win">
+                <div class="modal-head drag-target">
+                    <button class="btn-icon-text h-back"><span class="material-symbols-rounded">arrow_back</span> Назад</button>
+                    <button class="modal-close"><span class="material-symbols-rounded">close</span></button>
+                </div>
+                <div class="modal-body scrollable-content">
+                    <h2 class="mb-10 text-white">Windows Загрузки</h2>
+                    <div class="alert-box tip mb-20">
+                        <span class="material-symbols-rounded">help</span>
+                        <span>Не разбираешься? Качай <b>Setup x64</b> для установки.</span>
+                    </div>
+                    <div class="list-links">
+                        <button class="btn-glass justify-start" data-download="https://github.com/hiddify/hiddify-app/releases/download/v4.0.4/Hiddify-Windows-Setup-x64.exe"><span class="material-symbols-rounded">install_desktop</span> Setup x64</button>
+                        <button class="btn-glass justify-start" data-download="https://github.com/hiddify/hiddify-app/releases/download/v4.0.4/Hiddify-Windows-Portable-x64.zip"><span class="material-symbols-rounded">folder_zip</span> Portable x64</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hiddify Подменю macOS -->
+            <div class="hiddify-view" id="h-view-mac">
+                <div class="modal-head drag-target">
+                    <button class="btn-icon-text h-back"><span class="material-symbols-rounded">arrow_back</span> Назад</button>
+                    <button class="modal-close"><span class="material-symbols-rounded">close</span></button>
+                </div>
+                <div class="modal-body scrollable-content">
+                    <h2 class="mb-10 text-white">macOS Загрузки</h2>
+                    <div class="list-links mt-20">
+                        <button class="btn-glass justify-start" data-download="https://github.com/hiddify/hiddify-app/releases/download/v4.0.4/Hiddify-MacOS.dmg"><span class="material-symbols-rounded">save</span> DMG Universal</button>
+                        <button class="btn-glass justify-start" data-download="https://github.com/hiddify/hiddify-app/releases/download/v4.0.4/Hiddify-MacOS-Installer.pkg"><span class="material-symbols-rounded">inventory_2</span> PKG Universal</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hiddify Подменю Linux -->
+            <div class="hiddify-view" id="h-view-linux">
+                <div class="modal-head drag-target">
+                    <button class="btn-icon-text h-back"><span class="material-symbols-rounded">arrow_back</span> Назад</button>
+                    <button class="modal-close"><span class="material-symbols-rounded">close</span></button>
+                </div>
+                <div class="modal-body scrollable-content">
+                    <h2 class="mb-10 text-white">Linux Загрузки</h2>
+                    <div class="list-links mt-20">
+                        <button class="btn-glass justify-start" data-download="https://github.com/hiddify/hiddify-app/releases/download/v4.0.4/Hiddify-Linux-x64.AppImage"><span class="material-symbols-rounded">deployed_code</span> AppImage</button>
+                        <button class="btn-glass justify-start" data-download="https://github.com/hiddify/hiddify-app/releases/download/v4.0.4/Hiddify-Debian-x64.deb"><span class="material-symbols-rounded">deployed_code</span> DebPackage</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VK Desktop -->
+        <div id="modal-vk" class="modal-window">
+            <div class="modal-drag-area drag-target"><div class="modal-drag-handle"></div></div>
+            <div class="modal-head drag-target">
+                <div class="modal-title-row">
+                    <h2>VK Desktop</h2>
+                    <span class="modal-ver">v1.1.3</span>
+                </div>
+                <button class="modal-close"><span class="material-symbols-rounded">close</span></button>
+            </div>
+            <div class="modal-body scrollable-content">
+                <h3>Особенности клиента</h3>
+                <ul class="new-list green-bullets">
+                    <li>Максимальная <b>производительность</b> и отзывчивость.</li>
+                    <li>Встроенный <b>Discord RPC</b> (показ треков и статуса).</li>
+                    <li>Сворачивание в трей и фоновая работа.</li>
+                    <li>Полное отсутствие рекламы и мусора.</li>
                 </ul>
-
-                <h3 style="margin-top: 15px;">Бесплатный сервис (Нажми чтобы скопировать)</h3>
-                
-                <div class="copy-box clickable" onclick="copyText('https://etoneya.a9fm.site/1')">
-                    <span>Основа:</span>
-                    <div class="copy-link">etoneya.a9fm.site/1</div>
-                    <i class="ri-file-copy-line copy-icon"></i>
+                <div class="alert-box tip mt-20">
+                    <span class="material-symbols-rounded">speed</span>
+                    <div>
+                        <b class="text-white">Работает на Electron</b><br>
+                        Оптимизированное потребление ресурсов ПК по сравнению с браузером.
+                    </div>
                 </div>
-                <div class="copy-box clickable" onclick="copyText('https://alley.serv00.net/1')">
-                    <span>Зеркало 1:</span>
-                    <div class="copy-link">alley.serv00.net/1</div>
-                    <i class="ri-file-copy-line copy-icon"></i>
-                </div>
-                <div class="copy-box clickable" onclick="copyText('https://raw.githubusercontent.com/EtoNeYaProject/etoneyaproject.github.io/refs/heads/main/1')">
-                    <span>Зеркало 2:</span>
-                    <div class="copy-link">GitHub Mirror</div>
-                    <i class="ri-file-copy-line copy-icon"></i>
-                </div>
-
-                <div class="alert-box tip" style="margin-top: 15px;">
-                    <i class="ri-smartphone-line"></i>
-                    <span><b>Не грузит профиль?</b> Мобильные операторы могут блокировать загрузку. Подключитесь к Wi-Fi, загрузите профиль, и потом пользуйтесь на мобильном интернете.</span>
-                </div>
-
-                <div class="instruction-box" style="margin-top: 15px;">
-                    <h4><i class="ri-book-open-line"></i> Инструкция:</h4>
-                    <ol>
-                        <li>Нажмите на любой блок выше (ссылка скопируется).</li>
-                        <li>В приложении нажмите <b>"+"</b> -> <b>"Добавить из буфера"</b>.</li>
-                        <li>Нажмите большую кнопку подключения посередине.</li>
-                        <li><b>Выбор сервера:</b> Внизу нажмите <span style="background:#333; padding:2px 6px; border-radius:4px;">Прокси</span>. Сверху нажмите <i class="ri-flashlight-fill" style="color:#ffcc00"></i> (Молния) — это проверит пинг. Выбирайте сервер с зеленым значением.</li>
-                    </ol>
-                </div>
-
-                <h3 style="margin-top:15px">Скачать клиент</h3>
-                <div class="modal-grid">
-                    <button class="btn-glass" onclick="window.open('https://github.com/hiddify/hiddify-next/releases/download/v2.0.5/Hiddify-iOS.ipa')">
-                        <i class="ri-apple-fill"></i> iOS (IPA)
+                <h3 class="mt-20">Доступные загрузки</h3>
+                <div class="list-links mt-10">
+                    <button class="btn-glass justify-start" data-download="https://github.com/yamixdev/vk-desktop/releases/download/v1.1.3/VK-Desktop-Setup-1.1.3.exe">
+                        <span class="material-symbols-rounded">install_desktop</span> Скачать Installer (.exe)
                     </button>
-                    <button class="btn-glass" onclick="window.open('https://github.com/hiddify/hiddify-next/releases/download/v2.0.5/Hiddify-Android-universal.apk')">
-                        <i class="ri-android-fill"></i> Android
+                    <button class="btn-glass justify-start" data-github="https://github.com/yamixdev/vk-desktop">
+                        <span class="material-symbols-rounded">terminal</span> Исходный код (GitHub)
                     </button>
-                    <button class="btn-glass" onclick="window.open('https://github.com/hiddify/hiddify-next/releases/download/v2.0.5/Hiddify-Windows-Setup-x64.exe')">
-                        <i class="ri-windows-fill"></i> Win Setup
+                </div>
+            </div>
+        </div>
+
+        <!-- Zapret -->
+        <div id="modal-zapret" class="modal-window">
+            <div class="modal-drag-area drag-target"><div class="modal-drag-handle"></div></div>
+            <div class="modal-head drag-target">
+                <div class="modal-title-row">
+                    <h2>Zapret</h2>
+                    <span class="modal-ver">v1.9.7</span>
+                </div>
+                <button class="modal-close"><span class="material-symbols-rounded">close</span></button>
+            </div>
+            <div class="modal-body scrollable-content">
+                <h3>Что нового</h3>
+                <ul class="new-list green-bullets">
+                    <li>Добавлены пользовательские списки <b>ipset-exclude/general-user</b>.</li>
+                    <li><b>GameFilter</b> разделен на 3 режима: TCP, UDP, ALL.</li>
+                    <li>Добавлен параметр <code>--dpi-desync-any-protocol</code> для TCP.</li>
+                    <li>Двойной фейк в режимах ALT, SIMPLE FAKE и др.</li>
+                    <li>Пропуск проверки обновления при тестировании.</li>
+                    <li>Улучшен выбор конфигов и обновлен IPSet.</li>
+                </ul>
+                <h3 class="mt-20">Важные примечания</h3>
+                <ul class="new-list">
+                    <li>Списки <b>user</b> создаются автоматически в папке lists/ при первом запуске.</li>
+                    <li>В <b>ipset-exclude-user.txt</b> добавляйте подсети-исключения (высший приоритет).</li>
+                    <li>В <b>list-general-user.txt</b> добавляйте домены, которые нужно обходить.</li>
+                    <li><b>GameFilter</b> по стандарту установлен на UDP и включает кастомные порты.</li>
+                </ul>
+                <div class="list-links mt-20">
+                    <button class="btn-glass justify-start" data-download="https://github.com/Flowseal/zapret-discord-youtube/releases/download/1.9.7/zapret-discord-youtube-1.9.7.rar">
+                        <span class="material-symbols-rounded">folder_zip</span> Загрузить RAR архив
                     </button>
-                    <button class="btn-glass" onclick="window.open('https://github.com/hiddify/hiddify-next/releases/download/v2.0.5/Hiddify-Windows-Portable-x64.zip')">
-                        <i class="ri-hard-drive-line"></i> Win Portable
+                    <button class="btn-glass justify-start" data-download="https://github.com/Flowseal/zapret-discord-youtube/releases/download/1.9.7/zapret-discord-youtube-1.9.7.zip">
+                        <span class="material-symbols-rounded">folder_zip</span> Загрузить ZIP архив
+                    </button>
+                    <button class="btn-glass justify-start" data-github="https://github.com/Flowseal/zapret-discord-youtube">
+                        <span class="material-symbols-rounded">code</span> Исходный код (GitHub)
                     </button>
                 </div>
             </div>
