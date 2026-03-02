@@ -33,5 +33,5 @@
 
 ## Ссылки
 
-- Демонстрация проекта:[yamixdev.github.io/bio](https://yamixdev.github.io/bio/)
-- Связь со мной:[Telegram (@Ilushadev)](https://t.me/Ilushadev)
+- Демонстрация проекта: [yamixdev.github.io/bio](https://yamixdev.github.io/bio/)
+- Связь со мной: [Telegram (@Ilushadev)](https://t.me/Ilushadev)
