@@ -51,6 +51,14 @@ http://localhost:8000
 
 Также можно использовать расширение **Live Server** для Visual Studio Code.
 
+После изменения CSS или JavaScript обновите версии ресурсов перед коммитом:
+
+```bash
+node scripts/version-assets.cjs
+```
+
+Команда добавляет хеш содержимого к URL локальных стилей и скриптов, чтобы браузер загружал обновлённые файлы после публикации.
+
 ## Связь
 
 [Telegram — @Ilushadev](https://t.me/Ilushadev)
