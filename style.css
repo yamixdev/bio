@@ -50,21 +50,6 @@ body {
   font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  transition: opacity 260ms ease, transform 340ms var(--ease);
-}
-
-html.page-enter body {
-  opacity: 0;
-  transform: translateY(10px);
-}
-
-html.page-leaving body {
-  opacity: 0;
-  transform: translateX(-12px);
-}
-
-html.page-leaving.page-leaving-back body {
-  transform: translateX(12px);
 }
 
 body.modal-open {
@@ -377,6 +362,8 @@ h1 {
   display: flex;
   align-items: center;
   gap: 16px;
+  width: min(100%, 400px);
+  margin-inline: auto;
   min-height: 98px;
   padding: 16px;
   overflow: hidden;
@@ -390,6 +377,9 @@ h1 {
 }
 
 .spotify-card.playing {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 20px;
   cursor: pointer;
   border-color: rgba(255, 255, 255, 0.16);
 }
@@ -419,6 +409,20 @@ h1 {
   border-radius: 14px;
   background: #181819 center / cover no-repeat;
   box-shadow: 0 8px 22px rgba(0, 0, 0, 0.38);
+}
+
+.spotify-card.playing .sp-cover {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  border-radius: 14px;
+  outline: 1px solid rgba(255, 255, 255, 0.1);
+  outline-offset: -1px;
+}
+
+.spotify-card.playing .sp-eq {
+  right: 12px;
+  bottom: 12px;
 }
 
 .sp-cover-placeholder {
@@ -501,6 +505,24 @@ h1 {
   white-space: nowrap;
 }
 
+.spotify-card.playing .sp-track-name {
+  margin-top: 6px;
+  font-size: clamp(1.3rem, 4vw, 1.6rem);
+  line-height: 1.2;
+  font-weight: 760;
+  letter-spacing: -0.025em;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.spotify-card.playing .sp-artist-name {
+  margin-top: 2px;
+  color: #d1d1d8;
+  font-size: 0.9rem;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
 .spotify-card.idle .sp-track-name {
   color: #c3c3c8;
   font-weight: 590;
@@ -516,16 +538,18 @@ h1 {
 
 .sp-progress-container {
   display: none;
+  grid-template-columns: 1fr 1fr;
   align-items: center;
   gap: 8px;
-  margin-top: 5px;
+  margin-top: 16px;
 }
 
 .spotify-card.playing .sp-progress-container {
-  display: flex;
+  display: grid;
 }
 
 .sp-time {
+  grid-row: 2;
   flex: 0 0 auto;
   color: #c8c8cd;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
@@ -533,13 +557,29 @@ h1 {
   font-variant-numeric: tabular-nums;
 }
 
+.sp-time:last-child { text-align: right; }
+
 .sp-progress-bar {
+  grid-column: 1 / -1;
+  grid-row: 1;
   flex: 1;
   height: 4px;
   overflow: hidden;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.2);
 }
+
+.sp-platform {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+  color: #b9b9c3;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.spotify-card.playing .sp-platform { display: flex; }
 
 .sp-progress-fill {
   width: 0;
@@ -672,6 +712,87 @@ h1 {
   gap: 11px;
 }
 
+.archive-badge {
+  display: inline-flex;
+  align-items: center;
+  margin-inline-start: 7px;
+  padding: 3px 6px;
+  border: 1px solid rgba(214, 177, 107, 0.24);
+  border-radius: 5px;
+  color: #d6b16b;
+  background: rgba(214, 177, 107, 0.065);
+  font-size: 0.58rem;
+  font-weight: 650;
+  line-height: 1.2;
+  letter-spacing: 0.035em;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+
+.archive-label { color: #d6b16b; }
+
+.soft-release-state {
+  max-width: 170px;
+  color: #8d939e;
+  font-size: 0.61rem;
+  line-height: 1.5;
+  text-align: end;
+  white-space: normal;
+}
+
+.soft-release-state[data-release-status="stale"],
+.soft-release-state[data-release-status="error"] { color: #d6b16b; }
+
+@media (max-width: 560px) {
+  .software-list .soft-item { flex-wrap: wrap; gap: 12px; }
+  .software-list .soft-left { flex-basis: 100%; }
+  .software-list .soft-right {
+    display: flex;
+    flex-basis: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 6px 10px;
+    margin-inline-start: 62px;
+  }
+  .software-list .soft-info > span { max-width: none; }
+  .software-list .soft-release-state { max-width: none; }
+}
+
+.archive-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid rgba(214, 177, 107, 0.18);
+  border-radius: 14px;
+  color: #d6b16b;
+  background: rgba(214, 177, 107, 0.055);
+}
+
+.archive-notice > .material-symbols-rounded { flex: 0 0 auto; margin-top: 1px; }
+.archive-notice strong { font-size: 0.9rem; }
+.archive-notice p { margin-top: 5px; color: #b7b0a4; font-size: 0.79rem; line-height: 1.6; }
+
+.developer-quote {
+  margin-block: 16px 20px;
+  padding: 16px 18px;
+  border-inline-start: 2px solid #55555f;
+  border-radius: 0 12px 12px 0;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.developer-quote p { color: #d4d4db; font-size: 0.87rem; line-height: 1.7; }
+.developer-quote cite { display: block; margin-top: 10px; color: #858591; font-size: 0.7rem; font-style: normal; }
+
+.cat-search-hint {
+  margin: 10px 2px 18px;
+  color: #9c9ca5;
+  font-size: 0.75rem;
+  line-height: 1.6;
+}
+
 .project-title h3 {
   overflow: hidden;
   font-size: 1.04rem;
@@ -681,6 +802,7 @@ h1 {
 }
 
 .project-mark {
+  position: relative;
   flex: 0 0 auto;
   width: 40px;
   height: 40px;
@@ -695,18 +817,18 @@ h1 {
 }
 
 .project-mark.github {
-    background: #ffffff;
-    color: #0d1117;
+  background: #ffffff;
+  color: #0d1117;
 }
 
 .project-mark.github svg {
-    width: 24px;
-    height: 24px;
-    display: block;
+  width: 24px;
+  height: 24px;
+  display: block;
 }
 
 .project-mark.blue { background: linear-gradient(145deg, #367eea, #2258bc); }
-.project-mark.vk { background: #2787f5; }
+.project-mark.vk { background: linear-gradient(145deg, #2787f5, #1864c4); }
 .project-mark.cyan { background: linear-gradient(145deg, #1babb3, #14767d); }
 .project-mark.image-mark { background: #0b0b0c; }
 .project-mark.core-mark {
@@ -714,7 +836,15 @@ h1 {
   background: transparent;
   box-shadow: none;
 }
-.project-mark img { width: 100%; height: 100%; object-fit: cover; }
+
+.project-mark img {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
 
 .card-arrow {
   flex: 0 0 auto;
@@ -831,6 +961,7 @@ h1 {
 }
 
 .soft-icon {
+  position: relative;
   flex: 0 0 auto;
   width: 52px;
   height: 52px;
@@ -844,37 +975,35 @@ h1 {
   letter-spacing: -0.03em;
 }
 
-.soft-icon.brand-hiddify {
-    color: #13299d;
-    background: rgba(19, 41, 157, 0.12);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.hiddify-logo {
-    width: 32px;
-    height: 32px;
-    display: block;
-    flex-shrink: 0;
+.icon-fallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: #ffffff;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  user-select: none;
 }
 
 .brand-vk {
-  background: #2787f5;
-  color: #fff;
+  background: linear-gradient(145deg, #2787f5, #1864c4);
+  color: #ffffff;
 }
 
-.soft-icon.brand-vk {
-    overflow: hidden;
-    background: transparent;
+.brand-vk img {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  border-radius: inherit;
 }
 
-.soft-icon.brand-vk img {
-    width: 100%;
-    height: 100%;
-    display: block;
-    object-fit: cover;
-    border-radius: inherit;
+.brand-vk img[data-error="true"],
+.project-mark img[data-error="true"] {
+  display: none;
 }
 
 .brand-zapret {
@@ -891,8 +1020,23 @@ h1 {
 }
 
 .brand-hiddify {
-  background: linear-gradient(145deg, #23b991, #16775f);
-  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(145deg, #2c5ae9, #153194);
+  color: #ffffff;
+}
+
+.hiddify-logo {
+  width: 30px;
+  height: 30px;
+  display: block;
+  flex-shrink: 0;
+}
+
+.modal-product-icon .hiddify-logo {
+  width: 24px;
+  height: 24px;
 }
 
 .image-soft-icon {
@@ -931,19 +1075,6 @@ h1 {
   line-height: 1.4;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-
-.new-badge {
-  display: inline-flex;
-  margin-left: 5px;
-  padding: 2px 5px;
-  border-radius: 5px;
-  background: rgba(41, 209, 125, 0.12);
-  color: #64e9a5;
-  font-size: 0.55rem;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  vertical-align: 2px;
 }
 
 .soft-right {
@@ -1318,7 +1449,9 @@ h1 {
   width: 100%;
 }
 
-.cat-actions[hidden] {
+.cat-actions[hidden],
+.btn-glass[hidden],
+.btn-primary[hidden] {
   display: none;
 }
 

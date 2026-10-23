@@ -7,17 +7,16 @@
     <meta name="theme-color" content="#050505">
     <meta name="color-scheme" content="dark">
     <title>yamixdev</title>
-    <script>
-        document.documentElement.classList.add('page-enter');
-        window.setTimeout(() => document.documentElement.classList.remove('page-enter'), 700);
-    </script>
+    <script src="i18n.js"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0,0&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="language.css">
+    <link rel="stylesheet" href="releases.css">
 </head>
-<body>
+<body data-i18n="bio">
     <div class="page-glow" aria-hidden="true"></div>
 
     <div class="container">
@@ -31,6 +30,16 @@
                 <button class="nav-btn" id="tab-cats" type="button" role="tab" aria-selected="false" aria-controls="cats" data-tab="cats">Котики</button>
             </div>
         </nav>
+
+        <div class="site-preferences">
+            <div class="language-picker" data-language-picker data-i18n-skip>
+                <button class="language-trigger" type="button" data-language-trigger aria-label="Язык" aria-haspopup="menu" aria-expanded="false">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/></svg>
+                    <span data-language-value>Авто</span>
+                    <svg class="language-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg>
+                </button>
+            </div>
+        </div>
 
         <main id="content">
             <section id="home" class="tab-content active" role="tabpanel" aria-labelledby="tab-home">
@@ -50,7 +59,7 @@
                         </div>
                     </div>
 
-                    <div id="spotify-widget" class="spotify-card idle" aria-live="polite">
+                    <a id="spotify-widget" class="spotify-card idle" target="_blank" rel="noopener noreferrer">
                         <div class="sp-cover" id="sp-cover" aria-hidden="true">
                             <div class="sp-cover-placeholder">
                                 <span class="material-symbols-rounded">music_note</span>
@@ -64,8 +73,9 @@
                         <div class="sp-info">
                             <div class="sp-header">
                                 <svg class="brand-svg" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 1.5A10.5 10.5 0 1 0 12 22.5 10.5 10.5 0 0 0 12 1.5Zm4.81 15.14a.65.65 0 0 1-.9.22c-2.46-1.5-5.56-1.84-9.21-1.01a.65.65 0 1 1-.29-1.27c4-.91 7.43-.52 10.18 1.16a.65.65 0 0 1 .22.9Zm1.29-2.87a.81.81 0 0 1-1.12.27c-2.82-1.73-7.12-2.23-10.46-1.22a.81.81 0 1 1-.47-1.55c3.82-1.16 8.55-.6 11.78 1.38.38.23.5.73.27 1.12Zm.11-2.99C14.83 8.77 9.25 8.58 6.03 9.55a.97.97 0 1 1-.56-1.86c3.7-1.12 9.86-.9 13.73 1.4a.97.97 0 0 1-.99 1.69Z"/></svg>
-                                <span id="sp-status-text">Музыка на паузе</span>
+                                <span id="sp-status-text" aria-live="polite">Музыка на паузе</span>
                             </div>
+
                             <div class="sp-track-name" id="sp-song">Сейчас я не слушаю Spotify</div>
                             <div class="sp-artist-name" id="sp-artist">Статус обновляется автоматически</div>
 
@@ -77,12 +87,17 @@
                                 <span class="sp-time" id="sp-time-end">0:00</span>
                             </div>
 
+                            <div class="sp-platform" aria-hidden="true">
+                                <span>Spotify</span>
+                                <span class="material-symbols-rounded icon-sm">north_east</span>
+                            </div>
+
                             <div class="sp-teaser" id="sp-teaser">
                                 <span class="material-symbols-rounded icon-sm">rocket_launch</span>
                                 В планах: собственный стриминг-плеер
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </section>
 
@@ -126,16 +141,24 @@
                     <a class="card project glow-purple" href="https://github.com/yamixdev/vk-desktop" target="_blank" rel="noopener noreferrer">
                         <div class="card-header">
                             <div class="project-title">
-                                <div class="project-mark image-mark"> <img src="https://sun1-54.vkuserphoto.ru/s/v1/ig2/Ck80JBmGc2Lmhd9EUhcQL05E3dO1z0lmwqq44qSqrBM206t7JWdvoHjlG5JExYTR1X3dMJwGrUx2xu6uXoWv66TX.jpg?quality=95&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1000x1000&from=bu&cs=1000x0"
-                                alt="VK Desktop"
-                            >
-                        </div>
-
-                                <h3>VK Desktop</h3>
+                                <span class="project-mark vk" aria-hidden="true">
+                                    <span class="icon-fallback">VK</span>
+                                    <img
+                                        src="https://sun1-54.vkuserphoto.ru/s/v1/ig2/Ck80JBmGc2Lmhd9EUhcQL05E3dO1z0lmwqq44qSqrBM206t7JWdvoHjlG5JExYTR1X3dMJwGrUx2xu6uXoWv66TX.jpg?quality=95&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1000x1000&from=bu&cs=1000x0"
+                                        alt=""
+                                        width="40"
+                                        height="40"
+                                        loading="lazy"
+                                        decoding="async"
+                                        referrerpolicy="no-referrer"
+                                        onerror="this.dataset.error='true'"
+                                    >
+                                </span>
+                                <h3>VK Desktop <span class="archive-badge">Архив</span></h3>
                             </div>
                             <span class="material-symbols-rounded card-arrow">north_east</span>
                         </div>
-                        <p>Неофициальный клиент VK для Windows с VK Next, Discord Rich Presence, треем и встроенными обновлениями.</p>
+                        <p>Архивный клиент VK для Windows с VK Next и Discord Rich Presence. Разработка прекращена, обновлений больше не будет.</p>
                         <div class="tags">
                             <span class="tag-pill"><span class="material-symbols-rounded icon-sm">desktop_windows</span> Windows</span>
                             <span class="tag-pill"><span class="material-symbols-rounded icon-sm">memory</span> Electron</span>
@@ -163,7 +186,7 @@
                         <div class="card-header">
                             <div class="project-title">
                                 <span class="project-mark core-mark">
-                                    <img src="assets/Etonify.png" alt="Etonify Core">
+                                    <img src="assets/Etonify.png" alt="" width="40" height="40" loading="lazy" decoding="async">
                                 </span>
                                 <h3>Etonify Core</h3>
                             </div>
@@ -203,30 +226,38 @@
 
                 <div class="software-list">
                     <button
-                            class="card soft-item"
-                            data-modal="modal-vk"
-                            aria-haspopup="dialog"
-                            aria-controls="modal-vk"
-                            type="button"
+                        class="card soft-item"
+                        data-modal="modal-vk"
+                        aria-haspopup="dialog"
+                        aria-controls="modal-vk"
+                        type="button"
                     >
-                            <span class="soft-left">
-                                <span class="soft-icon brand-vk" aria-hidden="true">
-                                    <img
-                                        src="https://sun1-54.vkuserphoto.ru/s/v1/ig2/Ck80JBmGc2Lmhd9EUhcQL05E3dO1z0lmwqq44qSqrBM206t7JWdvoHjlG5JExYTR1X3dMJwGrUx2xu6uXoWv66TX.jpg?quality=95&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1000x1000&from=bu&cs=1000x0"
-                                        alt=""
-                                    >
-                                </span>
-
-                                <span class="soft-info">
-                                    <strong>VK Desktop</strong>
-                                    <span>VK для Windows с VK Next, RPC и треем.</span>
-                                </span>
+                        <span class="soft-left">
+                            <span class="soft-icon brand-vk" aria-hidden="true">
+                                <span class="icon-fallback">VK</span>
+                                <img
+                                    src="https://sun1-54.vkuserphoto.ru/s/v1/ig2/Ck80JBmGc2Lmhd9EUhcQL05E3dO1z0lmwqq44qSqrBM206t7JWdvoHjlG5JExYTR1X3dMJwGrUx2xu6uXoWv66TX.jpg?quality=95&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1000x1000&from=bu&cs=1000x0"
+                                    alt=""
+                                    width="52"
+                                    height="52"
+                                    loading="lazy"
+                                    decoding="async"
+                                    referrerpolicy="no-referrer"
+                                    onerror="this.dataset.error='true'"
+                                >
                             </span>
 
-                            <span class="soft-right">
-                                <span class="soft-ver">v1.2.0</span>
-                                <span class="soft-date">Windows x64</span>
+                            <span class="soft-info">
+                                <strong>VK Desktop <span class="archive-badge">Архив</span></strong>
+                                <span>Больше не поддерживается.</span>
                             </span>
+                        </span>
+
+                        <span class="soft-right">
+                            <span class="soft-ver" data-release-version="yamixdev/vk-desktop">Проверяю…</span>
+                            <span class="soft-date" data-release-date="yamixdev/vk-desktop">Windows x64</span>
+                            <span class="soft-release-state" data-release-state="yamixdev/vk-desktop">GitHub Releases</span>
+                        </span>
                     </button>
 
                     <button class="card soft-item" data-modal="modal-zapret" type="button" aria-haspopup="dialog" aria-controls="modal-zapret">
@@ -238,8 +269,9 @@
                             </span>
                         </span>
                         <span class="soft-right">
-                            <span class="soft-ver">v1.10.0</span>
-                            <span class="soft-date">GitHub Release</span>
+                            <span class="soft-ver" data-release-version="Flowseal/zapret-discord-youtube">Проверяю…</span>
+                            <span class="soft-date" data-release-date="Flowseal/zapret-discord-youtube">GitHub Releases</span>
+                            <span class="soft-release-state" data-release-state="Flowseal/zapret-discord-youtube">GitHub Releases</span>
                         </span>
                     </button>
 
@@ -253,10 +285,10 @@
                                     focusable="false"
                                 >
                                     <g fill="currentColor">
-                                        <path d=" M1.000001,589.468628   C2.771058,587.061707 4.274509,584.750183 6.362225,583.253601   C13.241864,578.322021 20.152021,573.388489 27.374897,568.988220   C55.219608,552.024841 83.171227,535.236572 111.119110,518.443176   C141.035187,500.467041 170.606247,481.863831 201.104828,464.933899   C214.929230,457.259918 234.865494,466.541107 234.924423,485.493042   C235.122406,549.156616 235.144989,612.821838 234.886475,676.484924   C234.829788,690.440002 245.391037,701.913086 260.223206,701.984985   C274.388977,702.053711 288.556580,702.115295 302.721161,701.968506   C317.918945,701.810974 328.015381,690.981079 328.011902,676.448914   C327.988892,580.452637 328.029297,484.456360 327.955780,388.460144   C327.948242,378.619659 332.308350,371.746094 340.550629,366.799286   C370.069794,349.082611 399.520233,331.251404 429.032501,313.523163   C453.091003,299.071075 477.205719,284.712616 501.284760,270.294739   C508.841125,265.770172 516.504211,261.403870 523.870178,256.585632   C538.573120,246.968094 557.312561,253.509216 561.498779,270.044769   C561.896606,271.616272 561.980408,273.301849 561.980591,274.934448   C562.001221,464.260437 562.001404,653.586426 561.997070,842.912415   C561.996765,855.779602 551.851807,865.993103 539.054138,865.995056   C476.389893,866.004883 413.725555,865.932617 351.061554,866.058777   C339.268738,866.082520 327.471558,854.817749 327.812958,842.959106   C328.460114,820.478577 327.720093,797.961487 328.100830,775.468811   C328.344574,761.069580 317.821533,748.448608 301.746094,748.917236   C288.091553,749.315308 274.414001,749.153076 260.750641,748.958679   C245.373535,748.739868 234.604294,759.816284 234.886185,774.567322   C235.319138,797.224792 234.917374,819.897156 235.031677,842.562317   C235.097214,855.560181 224.483521,866.035339 211.702454,866.024109   C149.538239,865.969727 87.373932,865.967468 25.209743,866.032288   C15.220128,866.042725 8.019124,861.657166 3.011859,853.226990   C2.723829,852.742065 2.163637,852.418884 1.365048,852.010254   C1.000000,764.645752 1.000000,677.291565 1.000001,589.468628  z"></path>
-                                        <path d=" M889.000000,851.531372   C888.231567,852.584778 887.221069,853.014587 886.732178,853.778320   C881.798279,861.485413 875.059631,866.000061 865.673218,865.999939   C803.346436,865.999268 741.019287,865.899780 678.693054,866.087830   C666.900818,866.123352 654.920288,856.007141 654.929993,842.457703   C655.041687,686.807434 655.072449,531.156921 654.870667,375.506866   C654.853882,362.568451 665.330750,350.835724 679.770569,350.904541   C731.597229,351.151520 783.425903,351.001373 835.253784,351.001343   C844.419495,351.001343 853.588867,351.164459 862.749939,350.958557   C873.330750,350.720795 881.564941,354.543854 886.973267,363.869537   C887.366882,364.548401 888.008545,365.083405 888.767456,365.342651   C889.000000,527.020874 889.000000,689.041809 889.000000,851.531372  z"></path>
-                                        <path d=" M656.166748,196.999588   C655.488342,187.585693 662.401367,183.094833 668.852112,179.173416   C710.332825,153.957153 752.019836,129.080063 793.642639,104.097580   C813.472412,92.195572 833.224854,80.161453 853.176758,68.467796   C864.763855,61.676704 878.157593,65.093384 885.164185,75.524017   C886.155518,76.999863 887.404785,78.302521 888.767334,79.342659   C889.000000,149.354233 889.000000,219.708450 889.000000,290.531342   C888.128052,291.713898 887.018982,292.269836 886.421631,293.166656   C881.593262,300.415466 875.484985,305.065918 866.209045,305.051208   C803.724426,304.951935 741.239502,304.930023 678.755127,305.075134   C669.498352,305.096619 658.258301,298.849792 656.265869,287.214081   C657.031067,284.951599 657.928101,283.271057 657.933777,281.587494   C658.022522,255.171783 658.031799,228.755524 657.918091,202.339996   C657.910400,200.557373 656.776733,198.779617 656.166748,196.999588  z"></path>
-                                        <path d=" M656.079346,197.418610   C656.776733,198.779617 657.910400,200.557373 657.918091,202.339996   C658.031799,228.755524 658.022522,255.171783 657.933777,281.587494   C657.928101,283.271057 657.031067,284.951599 656.215820,286.836426   C655.588745,285.500671 655.041260,283.962494 655.038147,282.423218   C654.985596,256.140381 654.979797,229.857391 655.043152,203.574631   C655.047729,201.661545 655.661499,199.749939 656.079346,197.418610  z"></path>
+                                        <path d="M1.000001,589.468628 C2.771058,587.061707 4.274509,584.750183 6.362225,583.253601 C13.241864,578.322021 20.152021,573.388489 27.374897,568.988220 C55.219608,552.024841 83.171227,535.236572 111.119110,518.443176 C141.035187,500.467041 170.606247,481.863831 201.104828,464.933899 C214.929230,457.259918 234.865494,466.541107 234.924423,485.493042 C235.122406,549.156616 235.144989,612.821838 234.886475,676.484924 C234.829788,690.440002 245.391037,701.913086 260.223206,701.984985 C274.388977,702.053711 288.556580,702.115295 302.721161,701.968506 C317.918945,701.810974 328.015381,690.981079 328.011902,676.448914 C327.988892,580.452637 328.029297,484.456360 327.955780,388.460144 C327.948242,378.619659 332.308350,371.746094 340.550629,366.799286 C370.069794,349.082611 399.520233,331.251404 429.032501,313.523163 C453.091003,299.071075 477.205719,284.712616 501.284760,270.294739 C508.841125,265.770172 516.504211,261.403870 523.870178,256.585632 C538.573120,246.968094 557.312561,253.509216 561.498779,270.044769 C561.896606,271.616272 561.980408,273.301849 561.980591,274.934448 C562.001221,464.260437 562.001404,653.586426 561.997070,842.912415 C561.996765,855.779602 551.851807,865.993103 539.054138,865.995056 C476.389893,866.004883 413.725555,865.932617 351.061554,866.058777 C339.268738,866.082520 327.471558,854.817749 327.812958,842.959106 C328.460114,820.478577 327.720093,797.961487 328.100830,775.468811 C328.344574,761.069580 317.821533,748.448608 301.746094,748.917236 C288.091553,749.315308 274.414001,749.153076 260.750641,748.958679 C245.373535,748.739868 234.604294,759.816284 234.886185,774.567322 C235.319138,797.224792 234.917374,819.897156 235.031677,842.562317 C235.097214,855.560181 224.483521,866.035339 211.702454,866.024109 C149.538239,865.969727 87.373932,865.967468 25.209743,866.032288 C15.220128,866.042725 8.019124,861.657166 3.011859,853.226990 C2.723829,852.742065 2.163637,852.418884 1.365048,852.010254 C1.000000,764.645752 1.000000,677.291565 1.000001,589.468628 z"></path>
+                                        <path d="M889.000000,851.531372 C888.231567,852.584778 887.221069,853.014587 886.732178,853.778320 C881.798279,861.485413 875.059631,866.000061 865.673218,865.999939 C803.346436,865.999268 741.019287,865.899780 678.693054,866.087830 C666.900818,866.123352 654.920288,856.007141 654.929993,842.457703 C655.041687,686.807434 655.072449,531.156921 654.870667,375.506866 C654.853882,362.568451 665.330750,350.835724 679.770569,350.904541 C731.597229,351.151520 783.425903,351.001373 835.253784,351.001343 C844.419495,351.001343 853.588867,351.164459 862.749939,350.958557 C873.330750,350.720795 881.564941,354.543854 886.973267,363.869537 C887.366882,364.548401 888.008545,365.083405 888.767456,365.342651 C889.000000,527.020874 889.000000,689.041809 889.000000,851.531372 z"></path>
+                                        <path d="M656.166748,196.999588 C655.488342,187.585693 662.401367,183.094833 668.852112,179.173416 C710.332825,153.957153 752.019836,129.080063 793.642639,104.097580 C813.472412,92.195572 833.224854,80.161453 853.176758,68.467796 C864.763855,61.676704 878.157593,65.093384 885.164185,75.524017 C886.155518,76.999863 887.404785,78.302521 888.767334,79.342659 C889.000000,149.354233 889.000000,219.708450 889.000000,290.531342 C888.128052,291.713898 887.018982,292.269836 886.421631,293.166656 C881.593262,300.415466 875.484985,305.065918 866.209045,305.051208 C803.724426,304.951935 741.239502,304.930023 678.755127,305.075134 C669.498352,305.096619 658.258301,298.849792 656.265869,287.214081 C657.031067,284.951599 657.928101,283.271057 657.933777,281.587494 C658.022522,255.171783 658.031799,228.755524 657.918091,202.339996 C657.910400,200.557373 656.776733,198.779617 656.166748,196.999588 z"></path>
+                                        <path d="M656.079346,197.418610 C656.776733,198.779617 657.910400,200.557373 657.918091,202.339996 C658.031799,228.755524 658.022522,255.171783 657.933777,281.587494 C657.928101,283.271057 657.031067,284.951599 656.215820,286.836426 C655.588745,285.500671 655.041260,283.962494 655.038147,282.423218 C654.985596,256.140381 654.979797,229.857391 655.043152,203.574631 C655.047729,201.661545 655.661499,199.749939 656.079346,197.418610 z"></path>
                                     </g>
                                 </svg>
                             </span>
@@ -267,24 +299,26 @@
                             </span>
                         </span>
                         <span class="soft-right">
-                            <span class="soft-ver">v4.1.1</span>
-                            <span class="soft-date">Все платформы</span>
+                            <span class="soft-ver" data-release-version="hiddify/hiddify-app">Проверяю…</span>
+                            <span class="soft-date" data-release-date="hiddify/hiddify-app">Все платформы</span>
+                            <span class="soft-release-state" data-release-state="hiddify/hiddify-app">GitHub Releases</span>
                         </span>
                     </button>
 
-                    <a class="card soft-item etonify-soft" href="etonify.html" data-page-transition="forward">
+                    <button class="card soft-item etonify-soft" data-modal="modal-etonify" type="button" aria-haspopup="dialog" aria-controls="modal-etonify">
                         <span class="soft-left">
                             <span class="soft-icon image-soft-icon" aria-hidden="true"><img src="assets/Etonify.png" alt="" width="52" height="52" loading="lazy" decoding="async"></span>
                             <span class="soft-info">
-                                <strong>Etonify <span class="new-badge">NEW</span></strong>
+                                <strong>Etonify</strong>
                                 <span>Открытый Android VPN-клиент на базе sing-box.</span>
                             </span>
                         </span>
                         <span class="soft-right">
-                            <span class="soft-ver soft-ver-green">Android</span>
-                            <span class="soft-date">Открыть страницу</span>
+                            <span class="soft-ver soft-ver-green" data-release-version="yamixdev/Etonify">Проверяю…</span>
+                            <span class="soft-date" data-release-date="yamixdev/Etonify">Android</span>
+                            <span class="soft-release-state" data-release-state="yamixdev/Etonify">GitHub Releases</span>
                         </span>
-                    </a>
+                    </button>
                 </div>
             </section>
 
@@ -350,7 +384,7 @@
                 <div class="cat-top-bar">
                     <div class="cat-input-group" id="cat-search-group">
                         <span class="material-symbols-rounded search-icon">search</span>
-                        <input type="search" id="cat-search" list="cat-tags" aria-label="Тег для поиска котика" placeholder="Тег на русском или английском" autocomplete="off" enterkeyhint="search">
+                        <input type="search" id="cat-search" list="cat-tags" aria-label="Тег для поиска котика" aria-describedby="cat-search-hint" placeholder="Теги на русском или английском; несколько — через запятую" autocomplete="off" enterkeyhint="search">
                         <datalist id="cat-tags">
                             <option value="cute">Милый</option>
                             <option value="funny">Смешной</option>
@@ -362,6 +396,8 @@
                         <button class="btn-search-cat" id="btn-cat-search" type="button" aria-label="Найти котика"><span class="material-symbols-rounded icon-sm">arrow_forward</span></button>
                     </div>
                 </div>
+
+                <p class="cat-search-hint" id="cat-search-hint">Cataas поддерживает поиск по тегам. Выберите подсказку или разделите теги запятыми.</p>
 
                 <div class="cat-frame" aria-live="polite">
                     <div class="cat-waiting" id="cat-waiting">
@@ -418,7 +454,7 @@
                 <button class="modal-close" type="button" aria-label="Закрыть"><span class="material-symbols-rounded">close</span></button>
             </div>
             <div class="modal-body scrollable-content">
-                <p>В автоматическом режиме сайт пробует несколько API по очереди. Поиск по тегам поддерживает Cataas.</p>
+                <p>Для случайных фотографий доступны Cataas и Nekos.life. Для поиска по тегам выберите Авто или Cataas.</p>
                 <div class="radio-group mt-20">
                     <label class="radio-item">
                         <input type="radio" name="cat-api" value="auto" checked>
@@ -426,14 +462,9 @@
                         <span class="radio-text"><strong>Автоматически</strong><span>Балансировка и резервные источники</span></span>
                     </label>
                     <label class="radio-item">
-                        <input type="radio" name="cat-api" value="thecatapi">
+                        <input type="radio" name="cat-api" value="nekos">
                         <span class="radio-custom"></span>
-                        <span class="radio-text"><strong>TheCatAPI</strong><span>Стабильные случайные изображения</span></span>
-                    </label>
-                    <label class="radio-item">
-                        <input type="radio" name="cat-api" value="shibe">
-                        <span class="radio-custom"></span>
-                        <span class="radio-text"><strong>Shibe.online</strong><span>Быстро, но без поиска по тегам</span></span>
+                        <span class="radio-text"><strong>Nekos.life</strong><span>Случайные фотографии котиков</span></span>
                     </label>
                     <label class="radio-item">
                         <input type="radio" name="cat-api" value="cataas">
@@ -448,28 +479,52 @@
             <div class="modal-drag-area drag-target"><div class="modal-drag-handle"></div></div>
             <div class="modal-head drag-target">
                 <div class="modal-title-row">
-                    <span class="soft-icon brand-vk modal-product-icon" aria-hidden="true">VK</span>
-                    <div><span class="eyebrow">Windows x64</span><h2 id="vk-modal-title">VK Desktop</h2></div>
-                    <span class="modal-ver">v1.2.0</span>
+                    <span class="soft-icon brand-vk modal-product-icon" aria-hidden="true">
+                        <span class="icon-fallback">VK</span>
+                        <img
+                            src="https://sun1-54.vkuserphoto.ru/s/v1/ig2/Ck80JBmGc2Lmhd9EUhcQL05E3dO1z0lmwqq44qSqrBM206t7JWdvoHjlG5JExYTR1X3dMJwGrUx2xu6uXoWv66TX.jpg?quality=95&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1000x1000&from=bu&cs=1000x0"
+                            alt=""
+                            width="43"
+                            height="43"
+                            loading="lazy"
+                            decoding="async"
+                            referrerpolicy="no-referrer"
+                            onerror="this.dataset.error='true'"
+                        >
+                    </span>
+                    <div><span class="eyebrow">Windows x64 · <span class="archive-label">Архив</span></span><h2 id="vk-modal-title">VK Desktop</h2></div>
+                    <span class="modal-ver" data-release-version="yamixdev/vk-desktop">—</span>
                 </div>
-                <button class="modal-close" type="button" aria-label="Закрыть"><span class="material-symbols-rounded">close</span></button>
+                <div class="release-head-actions">
+                    <button class="release-refresh" type="button" data-release-retry="yamixdev/vk-desktop" aria-label="Проверить обновления" title="Проверить обновления">
+                        <span class="material-symbols-rounded release-refresh-icon" aria-hidden="true">refresh</span>
+                    </button>
+                    <button class="modal-close" type="button" aria-label="Закрыть"><span class="material-symbols-rounded">close</span></button>
+                </div>
             </div>
             <div class="modal-body scrollable-content">
-                <p class="modal-lead">Неофициальный клиент VK для Windows: веб-интерфейс VK, VK Next и функции настольного приложения в одном окне.</p>
+                <div class="archive-notice">
+                    <span class="material-symbols-rounded" aria-hidden="true">inventory_2</span>
+                    <div><strong>Разработка прекращена</strong><p>Проект больше не поддерживается. Новых версий и исправлений не будет.</p></div>
+                </div>
+                <blockquote class="developer-quote">
+                    <p>VK Desktop больше не поддерживается. У меня больше нет ни желания, ни времени продолжать разработку проекта.</p>
+                    <cite>Комментарий разработчика</cite>
+                </blockquote>
                 <div class="feature-grid compact-feature-grid">
                     <div class="mini-feature"><span class="material-symbols-rounded">extension</span><strong>VK Next</strong><span>Проверка версии и целостности.</span></div>
                     <div class="mini-feature"><span class="material-symbols-rounded">headphones</span><strong>Discord RPC</strong><span>Трек и статус в профиле.</span></div>
                     <div class="mini-feature"><span class="material-symbols-rounded">notifications</span><strong>Трей</strong><span>Музыка, сообщения и уведомления.</span></div>
-                    <div class="mini-feature"><span class="material-symbols-rounded">update</span><strong>Обновления</strong><span>Проверка новых сборок внутри клиента.</span></div>
                 </div>
                 <div class="alert-box tip mt-20">
                     <span class="material-symbols-rounded">verified_user</span>
                     <div><strong>Загружайте только из официального репозитория.</strong><br>Windows SmartScreen может показать предупреждение из-за отсутствия коммерческого сертификата.</div>
                 </div>
                 <div class="modal-actions mt-20">
-                    <a class="btn-primary" href="https://github.com/yamixdev/vk-desktop/releases/latest" target="_blank" rel="noopener noreferrer"><span class="material-symbols-rounded">download</span> Последний релиз</a>
+                    <a class="btn-primary" data-release-link="yamixdev/vk-desktop" href="https://github.com/yamixdev/vk-desktop/releases/latest" target="_blank" rel="noopener noreferrer"><span class="material-symbols-rounded">download</span> Последний архивный релиз</a>
                     <a class="btn-glass" href="https://github.com/yamixdev/vk-desktop" target="_blank" rel="noopener noreferrer"><span class="material-symbols-rounded">code</span> GitHub</a>
                 </div>
+                <div class="release-panel" data-release-panel="yamixdev/vk-desktop"></div>
             </div>
         </div>
 
@@ -479,20 +534,26 @@
                 <div class="modal-title-row">
                     <span class="soft-icon brand-zapret modal-product-icon" aria-hidden="true"><img class="zapret-logo" src="assets/zapret.png" alt="" width="52" height="52" decoding="async"></span>
                     <div><span class="eyebrow">Windows</span><h2 id="zapret-modal-title">Zapret</h2></div>
-                    <span class="modal-ver">v1.10.0</span>
+                    <span class="modal-ver" data-release-version="Flowseal/zapret-discord-youtube">—</span>
                 </div>
-                <button class="modal-close" type="button" aria-label="Закрыть"><span class="material-symbols-rounded">close</span></button>
+                <div class="release-head-actions">
+                    <button class="release-refresh" type="button" data-release-retry="Flowseal/zapret-discord-youtube" aria-label="Проверить обновления" title="Проверить обновления">
+                        <span class="material-symbols-rounded release-refresh-icon" aria-hidden="true">refresh</span>
+                    </button>
+                    <button class="modal-close" type="button" aria-label="Закрыть"><span class="material-symbols-rounded">close</span></button>
+                </div>
             </div>
             <div class="modal-body scrollable-content">
                 <p class="modal-lead">Готовая сборка Flowseal для восстановления доступа к Discord и YouTube с наборами конфигураций и удобным запуском.</p>
                 <div class="alert-box tip">
                     <span class="material-symbols-rounded">info</span>
-                    <div><strong>Версия зафиксирована на релизе 1.10.0.</strong><br>Описание, архивы и инструкции находятся на официальной странице релиза.</div>
+                    <div><strong>Версия и изменения проверяются через GitHub.</strong><br>Архивы и инструкции доступны на официальной странице релиза.</div>
                 </div>
                 <div class="modal-actions mt-20">
-                    <a class="btn-primary" href="https://github.com/Flowseal/zapret-discord-youtube/releases/tag/1.10.0" target="_blank" rel="noopener noreferrer"><span class="material-symbols-rounded">folder_zip</span> Открыть релиз</a>
+                    <a class="btn-primary" data-release-link="Flowseal/zapret-discord-youtube" href="https://github.com/Flowseal/zapret-discord-youtube/releases/latest" target="_blank" rel="noopener noreferrer"><span class="material-symbols-rounded">folder_zip</span> Открыть релиз</a>
                     <a class="btn-glass" href="https://github.com/Flowseal/zapret-discord-youtube" target="_blank" rel="noopener noreferrer"><span class="material-symbols-rounded">code</span> GitHub</a>
                 </div>
+                <div class="release-panel" data-release-panel="Flowseal/zapret-discord-youtube"></div>
             </div>
         </div>
 
@@ -500,11 +561,30 @@
             <div class="modal-drag-area drag-target"><div class="modal-drag-handle"></div></div>
             <div class="modal-head drag-target">
                 <div class="modal-title-row">
-                    <span class="soft-icon brand-hiddify modal-product-icon" aria-hidden="true"><span class="material-symbols-rounded">vpn_lock</span></span>
+                    <span class="soft-icon brand-hiddify modal-product-icon" aria-hidden="true">
+                        <svg
+                            class="hiddify-logo"
+                            viewBox="0 0 890 867"
+                            xmlns="http://www.w3.org/2000/svg"
+                            focusable="false"
+                        >
+                            <g fill="currentColor">
+                                <path d="M1.000001,589.468628 C2.771058,587.061707 4.274509,584.750183 6.362225,583.253601 C13.241864,578.322021 20.152021,573.388489 27.374897,568.988220 C55.219608,552.024841 83.171227,535.236572 111.119110,518.443176 C141.035187,500.467041 170.606247,481.863831 201.104828,464.933899 C214.929230,457.259918 234.865494,466.541107 234.924423,485.493042 C235.122406,549.156616 235.144989,612.821838 234.886475,676.484924 C234.829788,690.440002 245.391037,701.913086 260.223206,701.984985 C274.388977,702.053711 288.556580,702.115295 302.721161,701.968506 C317.918945,701.810974 328.015381,690.981079 328.011902,676.448914 C327.988892,580.452637 328.029297,484.456360 327.955780,388.460144 C327.948242,378.619659 332.308350,371.746094 340.550629,366.799286 C370.069794,349.082611 399.520233,331.251404 429.032501,313.523163 C453.091003,299.071075 477.205719,284.712616 501.284760,270.294739 C508.841125,265.770172 516.504211,261.403870 523.870178,256.585632 C538.573120,246.968094 557.312561,253.509216 561.498779,270.044769 C561.896606,271.616272 561.980408,273.301849 561.980591,274.934448 C562.001221,464.260437 562.001404,653.586426 561.997070,842.912415 C561.996765,855.779602 551.851807,865.993103 539.054138,865.995056 C476.389893,866.004883 413.725555,865.932617 351.061554,866.058777 C339.268738,866.082520 327.471558,854.817749 327.812958,842.959106 C328.460114,820.478577 327.720093,797.961487 328.100830,775.468811 C328.344574,761.069580 317.821533,748.448608 301.746094,748.917236 C288.091553,749.315308 274.414001,749.153076 260.750641,748.958679 C245.373535,748.739868 234.604294,759.816284 234.886185,774.567322 C235.319138,797.224792 234.917374,819.897156 235.031677,842.562317 C235.097214,855.560181 224.483521,866.035339 211.702454,866.024109 C149.538239,865.969727 87.373932,865.967468 25.209743,866.032288 C15.220128,866.042725 8.019124,861.657166 3.011859,853.226990 C2.723829,852.742065 2.163637,852.418884 1.365048,852.010254 C1.000000,764.645752 1.000000,677.291565 1.000001,589.468628 z"></path>
+                                <path d="M889.000000,851.531372 C888.231567,852.584778 887.221069,853.014587 886.732178,853.778320 C881.798279,861.485413 875.059631,866.000061 865.673218,865.999939 C803.346436,865.999268 741.019287,865.899780 678.693054,866.087830 C666.900818,866.123352 654.920288,856.007141 654.929993,842.457703 C655.041687,686.807434 655.072449,531.156921 654.870667,375.506866 C654.853882,362.568451 665.330750,350.835724 679.770569,350.904541 C731.597229,351.151520 783.425903,351.001373 835.253784,351.001343 C844.419495,351.001343 853.588867,351.164459 862.749939,350.958557 C873.330750,350.720795 881.564941,354.543854 886.973267,363.869537 C887.366882,364.548401 888.008545,365.083405 888.767456,365.342651 C889.000000,527.020874 889.000000,689.041809 889.000000,851.531372 z"></path>
+                                <path d="M656.166748,196.999588 C655.488342,187.585693 662.401367,183.094833 668.852112,179.173416 C710.332825,153.957153 752.019836,129.080063 793.642639,104.097580 C813.472412,92.195572 833.224854,80.161453 853.176758,68.467796 C864.763855,61.676704 878.157593,65.093384 885.164185,75.524017 C886.155518,76.999863 887.404785,78.302521 888.767334,79.342659 C889.000000,149.354233 889.000000,219.708450 889.000000,290.531342 C888.128052,291.713898 887.018982,292.269836 886.421631,293.166656 C881.593262,300.415466 875.484985,305.065918 866.209045,305.051208 C803.724426,304.951935 741.239502,304.930023 678.755127,305.075134 C669.498352,305.096619 658.258301,298.849792 656.265869,287.214081 C657.031067,284.951599 657.928101,283.271057 657.933777,281.587494 C658.022522,255.171783 658.031799,228.755524 657.918091,202.339996 C657.910400,200.557373 656.776733,198.779617 656.166748,196.999588 z"></path>
+                                <path d="M656.079346,197.418610 C656.776733,198.779617 657.910400,200.557373 657.918091,202.339996 C658.031799,228.755524 658.022522,255.171783 657.933777,281.587494 C657.928101,283.271057 657.031067,284.951599 656.215820,286.836426 C655.588745,285.500671 655.041260,283.962494 655.038147,282.423218 C654.985596,256.140381 654.979797,229.857391 655.043152,203.574631 C655.047729,201.661545 655.661499,199.749939 656.079346,197.418610 z"></path>
+                            </g>
+                        </svg>
+                    </span>
                     <div><span class="eyebrow">Multi-platform</span><h2 id="hiddify-modal-title">Hiddify App</h2></div>
-                    <span class="modal-ver">v4.1.1</span>
+                    <span class="modal-ver" data-release-version="hiddify/hiddify-app">—</span>
                 </div>
-                <button class="modal-close" type="button" aria-label="Закрыть"><span class="material-symbols-rounded">close</span></button>
+                <div class="release-head-actions">
+                    <button class="release-refresh" type="button" data-release-retry="hiddify/hiddify-app" aria-label="Проверить обновления" title="Проверить обновления">
+                        <span class="material-symbols-rounded release-refresh-icon" aria-hidden="true">refresh</span>
+                    </button>
+                    <button class="modal-close" type="button" aria-label="Закрыть"><span class="material-symbols-rounded">close</span></button>
+                </div>
             </div>
             <div class="modal-body scrollable-content">
                 <p class="modal-lead">Кроссплатформенный клиент для импортируемых прокси-профилей и конфигураций.</p>
@@ -517,17 +597,60 @@
                 </div>
                 <div class="alert-box tip mt-20">
                     <span class="material-symbols-rounded">download</span>
-                    <div><strong>Сборки отличаются по платформе и архитектуре.</strong><br>Выберите подходящий файл на официальной странице релиза v4.1.1.</div>
+                    <div><strong>Сборки отличаются по платформе и архитектуре.</strong><br>Выберите подходящий файл на официальной странице релиза.</div>
                 </div>
                 <div class="modal-actions mt-20">
-                    <a class="btn-primary" href="https://github.com/hiddify/hiddify-app/releases/tag/v4.1.1" target="_blank" rel="noopener noreferrer"><span class="material-symbols-rounded">download</span> Открыть релиз</a>
+                    <a class="btn-primary" data-release-link="hiddify/hiddify-app" href="https://github.com/hiddify/hiddify-app/releases/latest" target="_blank" rel="noopener noreferrer"><span class="material-symbols-rounded">download</span> Открыть релиз</a>
                     <a class="btn-glass" href="https://github.com/hiddify/hiddify-app" target="_blank" rel="noopener noreferrer"><span class="material-symbols-rounded">code</span> GitHub</a>
                 </div>
+                <div class="release-panel" data-release-panel="hiddify/hiddify-app"></div>
+            </div>
+        </div>
+
+        <div id="modal-etonify" class="modal-window" role="dialog" aria-modal="true" aria-labelledby="etonify-modal-title" tabindex="-1">
+            <div class="modal-drag-area drag-target"><div class="modal-drag-handle"></div></div>
+            <div class="modal-head drag-target">
+                <div class="modal-title-row">
+                    <span class="soft-icon image-soft-icon modal-product-icon" aria-hidden="true"><img src="assets/Etonify.png" alt="" width="43" height="43" loading="lazy" decoding="async"></span>
+                    <div><span class="eyebrow">Android</span><h2 id="etonify-modal-title">Etonify</h2></div>
+                    <span class="modal-ver" data-release-version="yamixdev/Etonify">—</span>
+                </div>
+                <div class="release-head-actions">
+                    <button class="release-refresh" type="button" data-release-retry="yamixdev/Etonify" aria-label="Проверить обновления" title="Проверить обновления">
+                        <span class="material-symbols-rounded release-refresh-icon" aria-hidden="true">refresh</span>
+                    </button>
+                    <button class="modal-close" type="button" aria-label="Закрыть"><span class="material-symbols-rounded">close</span></button>
+                </div>
+            </div>
+            <div class="modal-body scrollable-content">
+                <p class="modal-lead">VPN-клиент для Android на базе sing-box: подписки, выбор серверов и раздельная маршрутизация.</p>
+                <div class="platform-row" role="group" aria-label="Поддерживаемые платформы">
+                    <span><span class="material-symbols-rounded" aria-hidden="true">android</span>Android 8.0+</span>
+                    <span>APK</span>
+                </div>
+                <div class="feature-grid compact-feature-grid mt-20">
+                    <div class="mini-feature"><span class="material-symbols-rounded" aria-hidden="true">add_link</span><strong>Импорт подписок</strong><span>Ссылка, QR-код или файл.</span></div>
+                    <div class="mini-feature"><span class="material-symbols-rounded" aria-hidden="true">alt_route</span><strong>Маршрутизация</strong><span>Выбор приложений и правила трафика.</span></div>
+                    <div class="mini-feature"><span class="material-symbols-rounded" aria-hidden="true">dns</span><strong>DNS и фильтрация</strong><span>DNS-пресеты и блокировка рекламы.</span></div>
+                    <div class="mini-feature"><span class="material-symbols-rounded" aria-hidden="true">troubleshoot</span><strong>Диагностика</strong><span>Логи и состояние подключения.</span></div>
+                </div>
+                <div class="alert-box tip mt-20">
+                    <span class="material-symbols-rounded" aria-hidden="true">info</span>
+                    <div><strong>Для подключения нужна ваша подписка или конфигурация.</strong><br>Приложение не предоставляет VPN-серверы.</div>
+                </div>
+                <div class="modal-actions mt-20">
+                    <a class="btn-primary" data-release-link="yamixdev/Etonify" href="https://github.com/yamixdev/Etonify/releases/latest" target="_blank" rel="noopener noreferrer"><span class="material-symbols-rounded" aria-hidden="true">download</span> Открыть релиз</a>
+                    <a class="btn-glass" href="https://github.com/yamixdev/Etonify" target="_blank" rel="noopener noreferrer"><span class="material-symbols-rounded" aria-hidden="true">code</span> GitHub</a>
+                </div>
+                <div class="release-panel" data-release-panel="yamixdev/Etonify"></div>
             </div>
         </div>
     </div>
 
+    <script src="keyboard-guard.js" defer></script>
+    <script src="vendor/marked.min.js" defer></script>
+    <script src="vendor/purify.min.js" defer></script>
+    <script src="releases.js" defer></script>
     <script src="script.js" defer></script>
-    <script src="link-router.js" defer></script>
 </body>
 </html>

@@ -1,0 +1,15 @@
+Local browser dependencies; no runtime CDN requests.
+
+marked 18.1.1 (MIT)
+https://registry.npmjs.org/marked/-/marked-18.1.1.tgz
+Upstream package: lib/marked.umd.js -> marked.min.js
+https://github.com/markedjs/marked/tree/v18.1.1
+SHA256: b82b9334406d8bdd16b6236c08de1cb65b2a859873ca9503d9cc0b292ca3c12a
+License: marked-LICENSE
+
+DOMPurify 3.4.17 (Apache-2.0 OR MPL-2.0)
+https://registry.npmjs.org/dompurify/-/dompurify-3.4.17.tgz
+Upstream package: dist/purify.min.js
+https://github.com/cure53/DOMPurify/tree/3.4.17
+SHA256: cd37898f9782adf54820c413191b5691803f0f137c799d6edcfd38523b4c2c31
+Licenses: DOMPurify-LICENSE-CHOICE and DOMPurify-LICENSE

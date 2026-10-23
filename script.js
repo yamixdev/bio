@@ -1,6 +1,8 @@
 'use strict';
 
 document.addEventListener('DOMContentLoaded', () => {
+  const i18n = window.SiteI18n;
+  const { t, bind } = i18n;
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const safeStorage = {
@@ -8,13 +10,10 @@ document.addEventListener('DOMContentLoaded', () => {
       try { return window.localStorage.getItem(key); } catch (_) { return null; }
     },
     set(key, value) {
-      try { window.localStorage.setItem(key, value); } catch (_) { /* storage может быть недоступен */ }
+      try { window.localStorage.setItem(key, value); } catch (_) {}
     }
   };
 
-  // ---------------------------------------------------------------------------
-  // Навигация по разделам
-  // ---------------------------------------------------------------------------
   const navContainer = document.querySelector('.nav-container');
   const indicator = document.getElementById('nav-indicator');
   const navButtons = [...document.querySelectorAll('.nav-btn[data-tab]')];
@@ -94,9 +93,6 @@ document.addEventListener('DOMContentLoaded', () => {
   navContainer?.addEventListener('scroll', () => moveIndicator(document.querySelector('.nav-btn.active')), { passive: true });
   document.fonts?.ready.then(() => moveIndicator(document.querySelector('.nav-btn.active')));
 
-  // ---------------------------------------------------------------------------
-  // Toast
-  // ---------------------------------------------------------------------------
   const toast = document.getElementById('toast');
   const toastIcon = document.getElementById('toast-icon');
   const toastMessage = document.getElementById('toast-msg');
@@ -104,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function showToast(message, icon = 'check_circle', color = '#29d17d') {
     if (!toast || !toastIcon || !toastMessage) return;
-    toastMessage.textContent = message;
+    bind(toastMessage, message);
     toastIcon.textContent = icon;
     toastIcon.style.color = color;
     toast.classList.add('active');
@@ -112,9 +108,6 @@ document.addEventListener('DOMContentLoaded', () => {
     toastTimer = window.setTimeout(() => toast.classList.remove('active'), 2800);
   }
 
-  // ---------------------------------------------------------------------------
-  // Модальные окна
-  // ---------------------------------------------------------------------------
   const overlay = document.getElementById('modal-overlay');
   const modalWindows = [...document.querySelectorAll('.modal-window')];
   const modalTriggers = [...document.querySelectorAll('[data-modal]')];
@@ -231,7 +224,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Свайп вниз для закрытия bottom-sheet на телефонах.
   let dragStartY = 0;
   let dragDistance = 0;
   let draggingModal = false;
@@ -261,9 +253,6 @@ document.addEventListener('DOMContentLoaded', () => {
     dragDistance = 0;
   }, { passive: true });
 
-  // ---------------------------------------------------------------------------
-  // Котики
-  // ---------------------------------------------------------------------------
   const catTerminal = document.getElementById('cat-terminal');
   const catPreviewButton = document.getElementById('cat-preview-button');
   const catImage = document.getElementById('cat-img');
@@ -276,6 +265,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const catActions = document.getElementById('cat-actions');
   const catSearchGroup = document.getElementById('cat-search-group');
   const catSearchInput = document.getElementById('cat-search');
+  const catSearchHint = document.getElementById('cat-search-hint');
+  const catTagList = document.getElementById('cat-tags');
   const catSearchButton = document.getElementById('btn-cat-search');
   const catNextButton = document.getElementById('btn-cat-next');
   const catDownloadButton = document.getElementById('btn-cat-download');
@@ -287,6 +278,9 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentCatUrl = '';
   let catLoading = false;
   let catRequestId = 0;
+  let knownCatTags = null;
+  let catTagsPromise = null;
+  let catSuggestionId = 0;
 
   const localTagMap = new Map([
     ['милый', 'cute'],
@@ -304,7 +298,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ['черный', 'black']
   ]);
 
-  function setCatStatus(message, type = 'success') {
+  function setCatStatus(message, type = 'success', params = {}) {
     if (!catTerminal) return;
     const colors = {
       success: '#55d696',
@@ -312,15 +306,24 @@ document.addEventListener('DOMContentLoaded', () => {
       error: '#ff7777',
       info: '#8aaef8'
     };
-    catTerminal.textContent = message;
+    bind(catTerminal, message, params);
     catTerminal.style.color = colors[type] || colors.success;
+  }
+
+  function syncCatDownloadState() {
+    if (!catDownloadButton) return;
+    const hasCat = Boolean(currentCatUrl);
+    catDownloadButton.hidden = !hasCat;
+    catDownloadButton.disabled = catLoading || !hasCat;
   }
 
   function setCatLoading(loading) {
     catLoading = loading;
-    [catSearchButton, catNextButton, catDownloadButton, catStartButton].forEach((button) => {
+    [catSearchButton, catNextButton, catStartButton].forEach((button) => {
       if (button) button.disabled = loading;
     });
+    if (catSearchButton) catSearchButton.disabled = loading || catSearchInput?.disabled;
+    syncCatDownloadState();
   }
 
   function setActiveCatTag(value) {
@@ -333,19 +336,30 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function updateCatMode(mode) {
+    if (!['auto', 'cataas', 'nekos'].includes(mode)) mode = 'auto';
+    if (catLoading) {
+      ++catRequestId;
+      catController?.abort();
+      if (catSkeleton) catSkeleton.style.display = 'none';
+      if (catWaiting) catWaiting.style.display = 'flex';
+      setCatStatus('Источник изменён. Нажмите «Найти котика», чтобы загрузить фото.', 'info');
+    }
     const supportsTags = mode === 'auto' || mode === 'cataas';
     if (catSearchInput) {
       catSearchInput.disabled = !supportsTags;
-      catSearchInput.placeholder = supportsTags
-        ? 'Тег на русском или английском'
-        : 'Этот источник не поддерживает теги';
-      if (!supportsTags) catSearchInput.value = '';
+      bind(catSearchInput, supportsTags
+        ? 'Теги на русском или английском; несколько — через запятую'
+        : 'Этот источник не поддерживает теги', {}, 'placeholder');
     }
+    bind(catSearchHint, supportsTags
+      ? 'Cataas поддерживает поиск по тегам. Выберите подсказку или разделите теги запятыми.'
+      : 'Nekos.life показывает только случайные фотографии. Для поиска выберите Авто или Cataas.');
     catQuickTags.forEach((button) => {
       button.disabled = !supportsTags && Boolean(button.dataset.catTag);
     });
     setActiveCatTag(supportsTags ? catSearchInput?.value || '' : '');
     catSearchGroup?.classList.toggle('is-disabled', !supportsTags);
+    setCatLoading(false);
     safeStorage.set('cat-api-mode', mode);
   }
 
@@ -355,6 +369,7 @@ document.addEventListener('DOMContentLoaded', () => {
     savedRadio.checked = true;
   }
   updateCatMode(document.querySelector('input[name="cat-api"]:checked')?.value || 'auto');
+  try { window.localStorage.removeItem('last-cat-source'); } catch (_) {}
 
   catRadios.forEach((radio) => {
     radio.addEventListener('change', () => updateCatMode(radio.value));
@@ -387,75 +402,171 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  async function normalizeTag(rawTag, signal) {
-    const value = rawTag.trim().toLowerCase();
-    if (!value) return '';
-    if (localTagMap.has(value)) return localTagMap.get(value);
-    if (!/[а-яё]/i.test(value)) return value.replace(/[^a-z0-9_-]/gi, '');
+  function catErrorMessage(message, params = {}) {
+    const error = new Error(t(message, params));
+    error.catMessage = message;
+    error.catParams = params;
+    return error;
+  }
 
-    setCatStatus('Перевожу тег…', 'warning');
+  function assertCatRequestActive(signal) {
+    if (signal?.aborted) throw new DOMException('Aborted', 'AbortError');
+  }
+
+  function waitForCatTask(task, signal) {
+    assertCatRequestActive(signal);
+    if (!signal) return task;
+    return new Promise((resolve, reject) => {
+      const abort = () => reject(new DOMException('Aborted', 'AbortError'));
+      signal.addEventListener('abort', abort, { once: true });
+      task.then(resolve, reject).finally(() => signal.removeEventListener('abort', abort));
+    });
+  }
+
+  function catTagKey(value) {
+    return value.normalize('NFKC').trim().toLowerCase().replace(/\s+/g, ' ');
+  }
+
+  async function getKnownCatTags(signal) {
+    assertCatRequestActive(signal);
+    if (knownCatTags) return knownCatTags;
+    if (!catTagsPromise) {
+      catTagsPromise = (async () => {
+        try {
+          const response = await fetchWithTimeout('https://cataas.com/api/tags', { timeout: 7500 });
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          const tags = await response.json();
+          if (!Array.isArray(tags) || !tags.length) throw new Error('Empty tags');
+          knownCatTags = new Map(tags.filter((tag) => typeof tag === 'string' && tag.trim())
+            .map((tag) => [catTagKey(tag), tag.trim()]));
+          return knownCatTags;
+        } catch (_) {
+          throw catErrorMessage('Не удалось загрузить список тегов Cataas. Попробуйте ещё раз.');
+        } finally {
+          catTagsPromise = null;
+        }
+      })();
+    }
+    return waitForCatTask(catTagsPromise, signal);
+  }
+
+  async function normalizeTag(rawTag, signal) {
+    const value = catTagKey(rawTag);
+    if (!value) return '';
+    setCatStatus('Проверяю теги Cataas…', 'info');
+    const tags = await getKnownCatTags(signal);
+    assertCatRequestActive(signal);
+
+    function knownParts(part) {
+      const key = catTagKey(part);
+      const mapped = localTagMap.get(key) || key;
+      if (tags.has(mapped)) return [tags.get(mapped)];
+      const words = key.split(' ');
+      if (words.length > 1 && words.every((word) => tags.has(localTagMap.get(word) || word))) {
+        return words.map((word) => tags.get(localTagMap.get(word) || word));
+      }
+      return null;
+    }
+
+    const resolved = [];
+    for (const part of value.split(',').map((item) => item.trim()).filter(Boolean)) {
+      let match = knownParts(part);
+      if (!match && /[а-яё]/i.test(part)) {
+        setCatStatus('Перевожу тег…', 'warning');
+        try {
+          const response = await fetchWithTimeout(
+            `https://api.mymemory.translated.net/get?q=${encodeURIComponent(part)}&langpair=ru|en`,
+            { timeout: 5000, signal }
+          );
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          const data = await response.json();
+          assertCatRequestActive(signal);
+          const translated = data?.responseData?.translatedText;
+          if (typeof translated !== 'string' || !translated.trim()) throw new Error('Empty translation');
+          match = knownParts(translated);
+        } catch (error) {
+          if (error.name === 'AbortError') throw error;
+          throw catErrorMessage('Не удалось перевести тег «{tag}». Попробуйте английский тег из подсказок.', { tag: part });
+        }
+      }
+      if (!match) throw catErrorMessage('Тег «{tag}» не найден в Cataas. Выберите тег из подсказок.', { tag: part });
+      resolved.push(...match);
+    }
+    if (!resolved.length) throw catErrorMessage('Введите тег из подсказок или очистите поле для случайного фото.');
+    return [...new Set(resolved)].join(',');
+  }
+
+  async function updateCatSuggestions() {
+    if (!catTagList || catSearchInput?.disabled) return;
+    const suggestionId = ++catSuggestionId;
     try {
-      const response = await fetchWithTimeout(
-        `https://api.mymemory.translated.net/get?q=${encodeURIComponent(value)}&langpair=ru|en`,
-        { timeout: 5000, signal }
-      );
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      const data = await response.json();
-      const translated = data?.responseData?.translatedText || '';
-      return translated.split(/\s+/)[0].replace(/[^a-z0-9_-]/gi, '').toLowerCase();
-    } catch (error) {
-      if (error.name === 'AbortError') throw error;
-      return value.replace(/[^a-z0-9_-]/gi, '');
+      const tags = await getKnownCatTags();
+      if (suggestionId !== catSuggestionId || catSearchInput?.disabled) return;
+      const parts = catSearchInput.value.split(',');
+      const query = catTagKey(parts.pop() || '');
+      const prefix = parts.length ? `${parts.join(',')}, ` : '';
+      const translated = localTagMap.get(query) || query;
+      const matches = [...tags.entries()].filter(([key]) => !query || key.includes(translated) || key.includes(query)).slice(0, 30);
+      catTagList.replaceChildren(...matches.map(([, tag]) => {
+        const option = document.createElement('option');
+        option.value = prefix + tag;
+        return option;
+      }));
+    } catch (_) {
+      if (suggestionId === catSuggestionId) catTagList.replaceChildren();
     }
   }
 
   function cataasExtractor(data) {
-    if (!Array.isArray(data) || !data.length) return '';
-    const item = data[Math.floor(Math.random() * data.length)];
-    const id = item?._id || item?.id;
+    const item = Array.isArray(data)
+      ? (data.length ? data[Math.floor(Math.random() * data.length)] : null)
+      : data;
+    if (!item || typeof item !== 'object') return '';
+
+    if (typeof item.url === 'string' && item.url.trim()) {
+      const rawUrl = item.url.trim();
+      return rawUrl.startsWith('http')
+        ? rawUrl
+        : `https://cataas.com${rawUrl.startsWith('/') ? '' : '/'}${rawUrl}`;
+    }
+
+    const id = item._id || item.id;
     return id ? `https://cataas.com/cat/${id}` : '';
   }
 
   function getCatSources(mode, tag) {
     if (tag) {
-      return [{
+      return mode === 'auto' || mode === 'cataas' ? [{
         name: 'Cataas',
+        key: 'cataas',
         url: `https://cataas.com/api/cats?tags=${encodeURIComponent(tag)}&limit=30`,
         extract: cataasExtractor
-      }];
+      }] : [];
     }
 
     const sources = [
       {
-        name: 'TheCatAPI',
-        key: 'thecatapi',
-        url: 'https://api.thecatapi.com/v1/images/search?limit=1&mime_types=jpg,png,webp',
-        extract: (data) => data?.[0]?.url || ''
-      },
-      {
-        name: 'Shibe.online',
-        key: 'shibe',
-        url: 'https://shibe.online/api/cats?count=1&urls=true&httpsUrls=true',
-        extract: (data) => data?.[0] || ''
-      },
-      {
         name: 'Cataas',
         key: 'cataas',
-        url: `https://cataas.com/api/cats?limit=24&skip=${Math.floor(Math.random() * 800)}`,
+        url: 'https://cataas.com/cat?json=true',
         extract: cataasExtractor
+      },
+      {
+        name: 'Nekos.life',
+        key: 'nekos',
+        url: 'https://nekos.life/api/v2/img/meow',
+        extract: (data) => data?.url || ''
       }
     ];
 
     if (mode !== 'auto') return sources.filter((source) => source.key === mode);
 
-    const lastSource = safeStorage.get('last-cat-source');
-    const lastIndex = sources.findIndex((source) => source.name === lastSource);
-    if (lastIndex >= 0) return [...sources.slice(lastIndex + 1), ...sources.slice(0, lastIndex + 1)];
     return sources;
   }
 
   function preloadImage(url, signal) {
     return new Promise((resolve, reject) => {
+      assertCatRequestActive(signal);
       const image = new Image();
       let timeoutId = 0;
 
@@ -478,7 +589,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
       image.onload = async () => {
         cleanup();
-        try { await image.decode?.(); } catch (_) { /* decode необязателен */ }
+        try { await image.decode?.(); } catch (_) {}
+        if (signal?.aborted) { reject(new DOMException('Aborted', 'AbortError')); return; }
         resolve(url);
       };
       image.onerror = () => rejectLoad(new Error('Файл изображения недоступен'));
@@ -494,12 +606,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (catLoading) catController?.abort();
     catController = new AbortController();
     const { signal } = catController;
+
+    currentCatUrl = '';
     setCatLoading(true);
 
     if (catImage) {
       catImage.removeAttribute('src');
     }
-    currentCatUrl = '';
     if (catPreviewButton) catPreviewButton.hidden = true;
     if (catSkeleton) catSkeleton.style.display = 'block';
     if (catWaiting) catWaiting.style.display = 'none';
@@ -508,38 +621,44 @@ document.addEventListener('DOMContentLoaded', () => {
     if (catActions) catActions.hidden = true;
 
     const mode = document.querySelector('input[name="cat-api"]:checked')?.value || 'auto';
+    const rawTag = mode === 'auto' || mode === 'cataas' ? catSearchInput?.value || '' : '';
     let tag = '';
 
     try {
-      tag = await normalizeTag(catSearchInput?.value || '', signal);
-      if ((mode === 'thecatapi' || mode === 'shibe') && tag) tag = '';
+      tag = await normalizeTag(rawTag, signal);
+      assertCatRequestActive(signal);
 
       const sources = getCatSources(mode, tag);
       let selected = null;
       let lastError = null;
 
-      for (const source of sources) {
+      for (const [index, source] of sources.entries()) {
         try {
-          setCatStatus(tag ? `Ищу «${tag}» через ${source.name}…` : `Подключаюсь к ${source.name}…`, 'info');
+          setCatStatus(tag ? 'Ищу «{tag}» через {source}…' : 'Подключаюсь к {source}…', 'info', { tag, source: source.name });
           const response = await fetchWithTimeout(source.url, { timeout: 7500, signal });
           if (!response.ok) throw new Error(`HTTP ${response.status}`);
           const data = await response.json();
+          assertCatRequestActive(signal);
           const imageUrl = source.extract(data);
           if (!imageUrl) throw new Error(tag ? 'По этому тегу ничего не найдено' : 'API вернул пустой ответ');
           await preloadImage(imageUrl, signal);
+          assertCatRequestActive(signal);
           selected = { imageUrl, sourceName: source.name };
           break;
         } catch (error) {
           if (error.name === 'AbortError') throw error;
+          assertCatRequestActive(signal);
           lastError = error;
-          setCatStatus(`${source.name} не ответил, пробую другой…`, 'warning');
+          if (index < sources.length - 1) {
+            setCatStatus('{source} не ответил, пробую другой…', 'warning', { source: source.name });
+          }
         }
       }
 
       if (!selected) throw lastError || new Error('Все источники временно недоступны');
+      if (requestId !== catRequestId) return;
 
       currentCatUrl = selected.imageUrl;
-      safeStorage.set('last-cat-source', selected.sourceName);
       if (catImage) {
         catImage.src = selected.imageUrl;
       }
@@ -548,17 +667,19 @@ document.addEventListener('DOMContentLoaded', () => {
         catSource.textContent = selected.sourceName;
         catSource.hidden = false;
       }
+      syncCatDownloadState();
       if (catActions) catActions.hidden = false;
-      setCatStatus(`Загружено через ${selected.sourceName}.`);
+      setCatStatus('Загружено через {source}.', 'success', { source: selected.sourceName });
     } catch (error) {
-      if (error.name === 'AbortError') return;
+      if (error.name === 'AbortError' || signal.aborted || requestId !== catRequestId) return;
       currentCatUrl = '';
+      syncCatDownloadState();
       if (catPreviewButton) catPreviewButton.hidden = true;
-      if (catErrorTitle) catErrorTitle.textContent = tag ? 'Котик не найден' : 'Источник недоступен';
-      if (catErrorDescription) catErrorDescription.textContent = error.message || 'Попробуйте ещё раз.';
+      bind(catErrorTitle, rawTag.trim() ? 'Котик не найден' : 'Источник недоступен');
+      bind(catErrorDescription, error.catMessage || error.message || 'Попробуйте ещё раз.', error.catParams || {});
       if (catError) catError.style.display = 'block';
       if (catActions) catActions.hidden = false;
-      setCatStatus(error.message || 'Не удалось загрузить котика.', 'error');
+      setCatStatus(error.catMessage || error.message || 'Не удалось загрузить котика.', 'error', error.catParams || {});
     } finally {
       if (requestId === catRequestId) {
         if (catSkeleton) catSkeleton.style.display = 'none';
@@ -587,7 +708,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   catSearchInput?.addEventListener('input', () => {
     setActiveCatTag(catSearchInput.value);
+    updateCatSuggestions();
   });
+  catSearchInput?.addEventListener('focus', updateCatSuggestions);
 
   catDownloadButton?.addEventListener('click', async () => {
     if (!currentCatUrl) {
@@ -615,13 +738,10 @@ document.addEventListener('DOMContentLoaded', () => {
       if (popup) showToast('Изображение открыто в новой вкладке', 'open_in_new', '#8aaef8');
       else showToast('Браузер заблокировал открытие изображения', 'error', '#ff7777');
     } finally {
-      catDownloadButton.disabled = catLoading;
+      syncCatDownloadState();
     }
   });
 
-  // ---------------------------------------------------------------------------
-  // Lightbox
-  // ---------------------------------------------------------------------------
   const lightbox = document.getElementById('lightbox');
   const lightboxImage = document.getElementById('lightbox-img');
   const lightboxClose = document.getElementById('lightbox-close');
@@ -659,9 +779,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (event.target === lightbox) closeLightbox();
   });
 
-  // ---------------------------------------------------------------------------
-  // Spotify через Lanyard
-  // ---------------------------------------------------------------------------
   const DISCORD_ID = '835456105328410625';
   const spotifyWidget = document.getElementById('spotify-widget');
   const spotifyStatus = document.getElementById('sp-status-text');
@@ -676,6 +793,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let heartbeatInterval = 0;
   let reconnectTimer = 0;
   let reconnectDelay = 4000;
+  let currentSpotify = null;
 
   function formatTime(milliseconds) {
     const seconds = Math.max(0, Math.floor(milliseconds / 1000));
@@ -683,6 +801,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function updateSpotifyUI(spotify) {
+    currentSpotify = spotify;
     window.clearInterval(spotifyInterval);
 
     if (!spotifyWidget || !spotifyStatus || !spotifySong || !spotifyArtist || !spotifyCover) return;
@@ -690,14 +809,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!spotify) {
       spotifyWidget.classList.remove('playing');
       spotifyWidget.classList.add('idle');
-      spotifyWidget.removeAttribute('data-track-url');
-      spotifyWidget.removeAttribute('role');
-      spotifyWidget.removeAttribute('tabindex');
+      spotifyWidget.removeAttribute('href');
+      spotifyWidget.removeAttribute('aria-label');
       spotifyWidget.style.removeProperty('--bg-img');
       spotifyCover.style.backgroundImage = '';
-      spotifyStatus.textContent = 'Музыка на паузе';
-      spotifySong.textContent = 'Сейчас я не слушаю Spotify';
-      spotifyArtist.textContent = 'Статус обновляется автоматически';
+      spotifyStatus.textContent = t('Музыка на паузе');
+      spotifySong.textContent = t('Сейчас я не слушаю Spotify');
+      spotifyArtist.textContent = t('Статус обновляется автоматически');
       if (spotifyProgress) spotifyProgress.style.width = '0%';
       if (spotifyCurrent) spotifyCurrent.textContent = '0:00';
       if (spotifyEnd) spotifyEnd.textContent = '0:00';
@@ -708,19 +826,20 @@ document.addEventListener('DOMContentLoaded', () => {
     spotifyWidget.classList.add('playing');
     spotifyWidget.classList.remove('idle');
     if (trackUrl) {
-      spotifyWidget.dataset.trackUrl = trackUrl;
-      spotifyWidget.setAttribute('role', 'link');
-      spotifyWidget.tabIndex = 0;
+      spotifyWidget.href = trackUrl;
+      spotifyWidget.setAttribute('aria-label', t('Открыть «{song}» — {artist} в Spotify', {
+        song: spotify.song || t('Неизвестный трек'),
+        artist: (spotify.artist || t('Неизвестный исполнитель')).replace(/;\s*/g, ', ')
+      }));
     } else {
-      spotifyWidget.removeAttribute('data-track-url');
-      spotifyWidget.removeAttribute('role');
-      spotifyWidget.removeAttribute('tabindex');
+      spotifyWidget.removeAttribute('href');
+      spotifyWidget.removeAttribute('aria-label');
     }
     spotifyWidget.style.setProperty('--bg-img', `url("${spotify.album_art_url}")`);
     spotifyCover.style.backgroundImage = `url("${spotify.album_art_url}")`;
-    spotifyStatus.textContent = 'Сейчас играет';
-    spotifySong.textContent = spotify.song || 'Неизвестный трек';
-    spotifyArtist.textContent = (spotify.artist || 'Неизвестный исполнитель').replace(/;/g, ', ');
+    spotifyStatus.textContent = t('Сейчас играет');
+    spotifySong.textContent = spotify.song || t('Неизвестный трек');
+    spotifyArtist.textContent = (spotify.artist || t('Неизвестный исполнитель')).replace(/;\s*/g, ', ');
 
     const start = Number(spotify.timestamps?.start || Date.now());
     const end = Number(spotify.timestamps?.end || start);
@@ -738,17 +857,9 @@ document.addEventListener('DOMContentLoaded', () => {
     spotifyInterval = window.setInterval(updateProgress, 1000);
   }
 
-  function openSpotifyTrack() {
-    const url = spotifyWidget?.dataset.trackUrl;
-    if (url) window.open(url, '_blank', 'noopener,noreferrer');
-  }
-
-  spotifyWidget?.addEventListener('click', openSpotifyTrack);
-  spotifyWidget?.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault();
-      openSpotifyTrack();
-    }
+  window.addEventListener('site-language-change', () => {
+    updateSpotifyUI(currentSpotify);
+    moveIndicator(document.querySelector('.nav-btn.active'));
   });
 
   async function loadInitialLanyardState() {
@@ -760,7 +871,6 @@ document.addEventListener('DOMContentLoaded', () => {
         updateSpotifyUI(payload.data.listening_to_spotify ? payload.data.spotify : null);
       }
     } catch (_) {
-      // Виджет остаётся в спокойном состоянии, если API недоступен.
     }
   }
 
@@ -808,7 +918,6 @@ document.addEventListener('DOMContentLoaded', () => {
           if (state) updateSpotifyUI(state.listening_to_spotify ? state.spotify : null);
         }
       } catch (_) {
-        // Некорректный пакет не должен ломать остальную страницу.
       }
     });
 
